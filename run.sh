@@ -1,0 +1,67 @@
+#!/bin/bash 
+
+clear;
+yum install -y vim;
+
+#安装python3和pip3
+xz -d Python-3.4.6.tar.xz;
+tar -xvf Python-3.4.6.tar.xz;
+cd Python-3.4.6;
+yum groupinstall -y 'Development Tools';
+yum install -y zlib-devel bzip2-devel openssl-devel ncurese-devel;
+./configure --prefix=/usr/local/python3;
+make && make install;
+cd ..
+
+#软链接python3和pip3到环境变量
+ln -s /usr/local/python3/bin/python3 /usr/bin/python3;
+ln -s /usr/local/python3/bin/pip3 /usr/bin/pip3;
+
+#安装django 1.10.5 版
+pip3 install Django==1.10.5;
+pip3 install pymysql;
+pip3 install xlrd;
+#安装mysql-community
+rpm -ivh mysql-community-release-el7-5.noarch.rpm;
+yum repolist enabled | grep "mysql.*-community*";
+yum install -y mysql -community-server;
+
+#设置mysql
+mysql -u root -h localhost password 'xaut.qll'
+mysql -u root -h localhost -p'xaut.qll' <<EOF
+create database safeDb;
+create database session;
+CREATE USER 'safeUser'@'localhost' IDENTIFIED BY 'xaut.qll';
+grant all privileges on safeDb.* to safeUser@localhost identified by 'xaut.qll';
+grant all privileges on session.* to safeUser@localhost identified by 'xaut.qll';
+flush privileges;
+quit;
+EOF
+#导入数据库文件
+
+
+
+systemctl restart mysqld;
+#安装nginx
+rpm -ivh nginx-1.11.0-1.el7.ngx.x86_64.rpm;
+#sudo yum install epel-release
+#sudo yum install python-devel nginx
+mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.bakconf;
+cp ./httpssl.conf /etc/nginx/conf.d/httpssl.conf
+systemctl restart nginx;
+
+#安装配置supervisord 和wsgi
+pip3 install supervisor;
+pip install uwsgi --upgrade;
+cp ./supervisord.conf /etc/supervisord.conf
+supervisord -c /etc/supervisord.conf
+supervisorctl -c /etc/supervisord.conf start djangoWeb;
+clear;
+
+echo"安装完成啦。。。"
+
+
+
+
+
+
