@@ -6,6 +6,12 @@
 
 set -e
 
+if [ ! -x "$0" ]; then
+    chmod +x "$0"
+    echo "已为此文件添加可执行权限，请再次运行安装命令！";
+    exit 1;
+fi
+
 if [[ $EUID -ne 0 ]]; then
      echo "错误:请在root用户权限下运行!" 1>&2;
      exit 1;
@@ -65,12 +71,20 @@ mysql -uroot -p'xaut.qll' safeDb < safeDbstruc.sql
 mysql -uroot -p'xaut.qll' session < sessionstruc.sql
 
 systemctl restart mysqld
+
+#项目存储路径
+folder='/home/dev'
+if [ ! -d "$folder" ]; then
+    mkdir -p "$folder"
+fi
+cp -r ./djangoWeb /home/dev/SafeProgram
+
 #安装nginx
 rpm -ivh nginx-1.11.0-1.el7.ngx.x86_64.rpm
 #sudo yum install epel-release
 #sudo yum install python-devel nginx
 mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.bakconf
-cp ./httpssl.conf /etc/nginx/conf.d/httpssl.conf
+cp ./http.conf /etc/nginx/conf.d/http.conf
 systemctl restart nginx
 
 #安装配置supervisord 和wsgi
@@ -81,7 +95,7 @@ supervisord -c /etc/supervisord.conf
 supervisorctl -c /etc/supervisord.conf start djangoWeb
 clear
 
-echo"安装完成啦。。。"
+echo"恭喜你项目已经成功部署啦。。。"
 
 
 
