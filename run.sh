@@ -29,7 +29,7 @@ case $input in
 esac
 
 clear
-
+yum update
 yum install -y vim
 
 #安装python3和pip3
@@ -59,17 +59,20 @@ pip3 install xlrd
 if command -v mysql >/dev/null 2&>1; then
 	echo "mysql 已经存在！"
 else
+rpm -qa | grep mysql-community-release-el7-5.noarch &>/dev/null
+if [ $? -ne 0 ]; then
 rpm -ivh mysql-community-release-el7-5.noarch.rpm
+fi
 #yum repolist enabled | grep "mysql.*-community*"
-yum install -y mysql-community-server
+yum install -y mysql -community-server
 fi
 
 #设置mysql
+#delete from mysql.user where user = 'safeUser';
 mysql -u root -h localhost password 'xaut.qll'
 mysql -u root -h localhost -p'xaut.qll' <<EOF
 create database if not exists safeDb;
 create database if not exists session;
-delete from mysql.user where user = 'safeUser';
 create user 'safeUser'@'localhost' identified by 'xaut.qll';
 grant all privileges on safeDb.* to safeUser@localhost identified by 'xaut.qll';
 grant all privileges on session.* to safeUser@localhost identified by 'xaut.qll';
@@ -101,6 +104,9 @@ fi
 #sudo yum install python-devel nginx
 #mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.bakconf
 cp -r ./http.conf /etc/nginx/conf.d/http.conf
+if [ -f "/etc/nginx/conf.d/default.conf" ]; then
+mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.bak
+fi
 systemctl restart nginx
 
 #安装配置supervisord 和wsgi
@@ -120,9 +126,10 @@ pip3 install uwsgi --upgrade
 cp ./supervisord.conf /etc/supervisord.conf
 supervisord -c /etc/supervisord.conf
 supervisorctl -c /etc/supervisord.conf start djangoWeb
+rm -rf Python-3.4.6
 clear
 
-echo"恭喜你项目已经成功部署啦。。。"
+echo "恭喜你项目已经成功部署啦。。。"
 
 
 
