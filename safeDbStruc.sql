@@ -1,43 +1,39 @@
--- MySQL dump 10.13  Distrib 5.6.35, for Linux (x86_64)
---
--- Host: localhost    Database: safeDb
--- ------------------------------------------------------
--- Server version	5.6.35
+/*
+SQLyog 企业版 - MySQL GUI v8.14 
+MySQL - 5.6.24 : Database - safedbstruc
+*********************************************************************
+*/
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
+
+/*!40101 SET SQL_MODE=''*/;
+
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`safedbstruc` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
---
--- Table structure for table `adminLogin`
---
+USE `safedbstruc`;
 
-DROP TABLE IF EXISTS `adminLogin`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `adminLogin` (
+/*Table structure for table `adminlogin` */
+
+DROP TABLE IF EXISTS `adminlogin`;
+
+CREATE TABLE `adminlogin` (
   `loginAcc` varchar(50) NOT NULL,
   `LoginTime` datetime NOT NULL,
   PRIMARY KEY (`loginAcc`),
-  CONSTRAINT `adminLogin_ibfk_1` FOREIGN KEY (`loginAcc`) REFERENCES `loginInf` (`loginAcc`)
+  CONSTRAINT `adminLogin_ibfk_1` FOREIGN KEY (`loginAcc`) REFERENCES `logininf` (`loginAcc`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `alterHostIp`
---
+/*Data for the table `adminlogin` */
 
-DROP TABLE IF EXISTS `alterHostIp`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `alterHostIp` (
+/*Table structure for table `alterhostip` */
+
+DROP TABLE IF EXISTS `alterhostip`;
+
+CREATE TABLE `alterhostip` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `newIp` varchar(40) DEFAULT NULL,
   `oldIp` varchar(40) DEFAULT NULL,
@@ -46,33 +42,29 @@ CREATE TABLE `alterHostIp` (
   `oldIpExplain` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `alterKeywords`
---
+/*Data for the table `alterhostip` */
 
-DROP TABLE IF EXISTS `alterKeywords`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `alterKeywords` (
+/*Table structure for table `alterkeywords` */
+
+DROP TABLE IF EXISTS `alterkeywords`;
+
+CREATE TABLE `alterkeywords` (
   `alterId` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
   `fileHash` char(32) NOT NULL,
   PRIMARY KEY (`alterId`),
   KEY `fileHash` (`fileHash`),
-  CONSTRAINT `alterKeywords_ibfk_1` FOREIGN KEY (`fileHash`) REFERENCES `fileInf` (`fileHash`)
+  CONSTRAINT `alterKeywords_ibfk_1` FOREIGN KEY (`fileHash`) REFERENCES `fileinf` (`fileHash`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `alterMAC`
---
+/*Data for the table `alterkeywords` */
 
-DROP TABLE IF EXISTS `alterMAC`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `alterMAC` (
+/*Table structure for table `altermac` */
+
+DROP TABLE IF EXISTS `altermac`;
+
+CREATE TABLE `altermac` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `newMAC` varchar(20) DEFAULT NULL,
   `oldMAC` varchar(20) DEFAULT NULL,
@@ -81,16 +73,14 @@ CREATE TABLE `alterMAC` (
   `oldMACExplain` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `computerInf`
---
+/*Data for the table `altermac` */
 
-DROP TABLE IF EXISTS `computerInf`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `computerInf` (
+/*Table structure for table `computerinf` */
+
+DROP TABLE IF EXISTS `computerinf`;
+
+CREATE TABLE `computerinf` (
   `hostHD` varchar(40) NOT NULL,
   `hostMac` varchar(64) NOT NULL,
   `hostName` varchar(255) DEFAULT NULL,
@@ -104,18 +94,16 @@ CREATE TABLE `computerInf` (
   `sysTextEditor` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`userId`),
   KEY `userId` (`userId`),
-  CONSTRAINT `computerInf_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `userInf` (`userId`)
+  CONSTRAINT `computerInf_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `userinf` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `dbBackInf`
---
+/*Data for the table `computerinf` */
 
-DROP TABLE IF EXISTS `dbBackInf`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `dbBackInf` (
+/*Table structure for table `dbbackinf` */
+
+DROP TABLE IF EXISTS `dbbackinf`;
+
+CREATE TABLE `dbbackinf` (
   `dbId` int(11) NOT NULL AUTO_INCREMENT,
   `dbName` varchar(255) NOT NULL DEFAULT '自动备份',
   `local_file` varchar(255) DEFAULT NULL,
@@ -123,31 +111,27 @@ CREATE TABLE `dbBackInf` (
   `dbRemark` text,
   `userAcc` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`dbId`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Table structure for table `depaertRoleInf`
---
+/*Data for the table `dbbackinf` */
 
-DROP TABLE IF EXISTS `depaertRoleInf`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `depaertRoleInf` (
+/*Table structure for table `depaertroleinf` */
+
+DROP TABLE IF EXISTS `depaertroleinf`;
+
+CREATE TABLE `depaertroleinf` (
   `deparmentId` int(11) NOT NULL,
   `roleId` int(11) NOT NULL,
   PRIMARY KEY (`deparmentId`,`roleId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `departmentInf`
---
+/*Data for the table `depaertroleinf` */
 
-DROP TABLE IF EXISTS `departmentInf`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `departmentInf` (
+/*Table structure for table `departmentinf` */
+
+DROP TABLE IF EXISTS `departmentinf`;
+
+CREATE TABLE `departmentinf` (
   `departmentId` int(11) NOT NULL AUTO_INCREMENT,
   `departmentName` varchar(255) NOT NULL,
   `departmentPeoNum` int(11) NOT NULL DEFAULT '0',
@@ -161,31 +145,29 @@ CREATE TABLE `departmentInf` (
   `createUser` varchar(255) NOT NULL,
   `status` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`departmentId`)
-) ENGINE=InnoDB AUTO_INCREMENT=134 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
---
--- Table structure for table `departmentKey`
---
+/*Data for the table `departmentinf` */
 
-DROP TABLE IF EXISTS `departmentKey`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `departmentKey` (
+insert  into `departmentinf`(`departmentId`,`departmentName`,`departmentPeoNum`,`departmentStatus`,`departmentExplian`,`keyPath`,`userLoginStatus`,`province`,`city`,`createTime`,`createUser`,`status`) values (1,'三级部门',0,1,NULL,'null',0,'一级部门','二级部门','2017-04-19 17:05:36','一级部门:二级部门:三级部门:超超管',0),(2,'三级部门',0,1,NULL,'null',0,'陕西省','二级部门','2017-04-19 17:05:57','一级部门:二级部门:三级部门:超超管',0),(3,'三级部门',0,1,NULL,'null',0,'陕西省','公安厅','2017-04-19 17:06:30','一级部门:二级部门:三级部门:超超管',0),(4,'资料处',0,1,NULL,'null',0,'陕西省','公安厅','2017-04-19 17:06:42','一级部门:二级部门:三级部门:超超管',0);
+
+/*Table structure for table `departmentkey` */
+
+DROP TABLE IF EXISTS `departmentkey`;
+
+CREATE TABLE `departmentkey` (
   `keyId` int(11) NOT NULL,
   `departmentId` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`keyId`,`departmentId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `fileInf`
---
+/*Data for the table `departmentkey` */
 
-DROP TABLE IF EXISTS `fileInf`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `fileInf` (
+/*Table structure for table `fileinf` */
+
+DROP TABLE IF EXISTS `fileinf`;
+
+CREATE TABLE `fileinf` (
   `fileHash` char(32) NOT NULL,
   `fileLocalName` varchar(255) NOT NULL,
   `filePath` varchar(255) NOT NULL,
@@ -193,48 +175,42 @@ CREATE TABLE `fileInf` (
   `filePasswd` text,
   PRIMARY KEY (`fileHash`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `filePasswdInf`
---
+/*Data for the table `fileinf` */
 
-DROP TABLE IF EXISTS `filePasswdInf`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `filePasswdInf` (
+/*Table structure for table `filepasswdinf` */
+
+DROP TABLE IF EXISTS `filepasswdinf`;
+
+CREATE TABLE `filepasswdinf` (
   `passwdId` int(11) NOT NULL,
   `passwdPath` varchar(255) NOT NULL,
   `passwdfileName` varchar(255) NOT NULL,
   PRIMARY KEY (`passwdId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `filePasswdLog`
---
+/*Data for the table `filepasswdinf` */
 
-DROP TABLE IF EXISTS `filePasswdLog`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `filePasswdLog` (
+/*Table structure for table `filepasswdlog` */
+
+DROP TABLE IF EXISTS `filepasswdlog`;
+
+CREATE TABLE `filepasswdlog` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `alterTime` datetime NOT NULL,
   `passwdId` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `passwdId` (`passwdId`),
-  CONSTRAINT `filePasswdLog_ibfk_1` FOREIGN KEY (`passwdId`) REFERENCES `filePasswdInf` (`passwdId`)
+  CONSTRAINT `filePasswdLog_ibfk_1` FOREIGN KEY (`passwdId`) REFERENCES `filepasswdinf` (`passwdId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `fileUploadInf`
---
+/*Data for the table `filepasswdlog` */
 
-DROP TABLE IF EXISTS `fileUploadInf`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `fileUploadInf` (
+/*Table structure for table `fileuploadinf` */
+
+DROP TABLE IF EXISTS `fileuploadinf`;
+
+CREATE TABLE `fileuploadinf` (
   `UploadId` int(11) NOT NULL AUTO_INCREMENT,
   `userId` int(11) NOT NULL,
   `fileHash` char(32) NOT NULL,
@@ -244,35 +220,31 @@ CREATE TABLE `fileUploadInf` (
   PRIMARY KEY (`UploadId`),
   KEY `userId` (`userId`),
   KEY `fileHash` (`fileHash`),
-  CONSTRAINT `fileUploadInf_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `userInf` (`userId`),
-  CONSTRAINT `fileUploadInf_ibfk_2` FOREIGN KEY (`fileHash`) REFERENCES `fileInf` (`fileHash`)
-) ENGINE=InnoDB AUTO_INCREMENT=4875 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  CONSTRAINT `fileUploadInf_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `userinf` (`userId`),
+  CONSTRAINT `fileUploadInf_ibfk_2` FOREIGN KEY (`fileHash`) REFERENCES `fileinf` (`fileHash`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Table structure for table `keywordsInf`
---
+/*Data for the table `fileuploadinf` */
 
-DROP TABLE IF EXISTS `keywordsInf`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `keywordsInf` (
+/*Table structure for table `keywordsinf` */
+
+DROP TABLE IF EXISTS `keywordsinf`;
+
+CREATE TABLE `keywordsinf` (
   `keyId` int(11) NOT NULL AUTO_INCREMENT,
   `keyword` varchar(50) NOT NULL,
   `keyLever` int(11) NOT NULL DEFAULT '0',
   `createUserStatus` int(11) NOT NULL DEFAULT '0',
   `createUserId` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`keyId`)
-) ENGINE=InnoDB AUTO_INCREMENT=141 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Table structure for table `log`
---
+/*Data for the table `keywordsinf` */
+
+/*Table structure for table `log` */
 
 DROP TABLE IF EXISTS `log`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `log` (
   `logId` int(11) NOT NULL AUTO_INCREMENT,
   `logUpTime` datetime NOT NULL,
@@ -281,18 +253,16 @@ CREATE TABLE `log` (
   `logStatus` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`logId`),
   KEY `userId` (`userId`),
-  CONSTRAINT `log_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `userInf` (`userId`)
+  CONSTRAINT `log_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `userinf` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `loginInf`
---
+/*Data for the table `log` */
 
-DROP TABLE IF EXISTS `loginInf`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `loginInf` (
+/*Table structure for table `logininf` */
+
+DROP TABLE IF EXISTS `logininf`;
+
+CREATE TABLE `logininf` (
   `loginAcc` varchar(50) NOT NULL,
   `loginName` varchar(255) DEFAULT NULL,
   `loginPasswd` varchar(20) NOT NULL DEFAULT '123456',
@@ -301,18 +271,16 @@ CREATE TABLE `loginInf` (
   `isSuperAdmin` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`loginAcc`),
   KEY `userId` (`userId`),
-  CONSTRAINT `loginInf_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `userInf` (`userId`)
+  CONSTRAINT `loginInf_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `userinf` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `loginLog`
---
+/*Data for the table `logininf` */
 
-DROP TABLE IF EXISTS `loginLog`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `loginLog` (
+/*Table structure for table `loginlog` */
+
+DROP TABLE IF EXISTS `loginlog`;
+
+CREATE TABLE `loginlog` (
   `Lid` int(11) NOT NULL AUTO_INCREMENT,
   `userId` int(11) NOT NULL,
   `ltime` datetime NOT NULL,
@@ -321,63 +289,55 @@ CREATE TABLE `loginLog` (
   PRIMARY KEY (`Lid`),
   KEY `userId` (`userId`)
 ) ENGINE=MyISAM AUTO_INCREMENT=37250 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `noticeData`
---
+/*Data for the table `loginlog` */
 
-DROP TABLE IF EXISTS `noticeData`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `noticeData` (
+/*Table structure for table `noticedata` */
+
+DROP TABLE IF EXISTS `noticedata`;
+
+CREATE TABLE `noticedata` (
   `Nid` int(11) NOT NULL AUTO_INCREMENT,
   `Ntime` datetime NOT NULL DEFAULT '1990-01-01 00:00:00',
   `Ntitle` varchar(255) NOT NULL DEFAULT 'null',
   `Nbody` text NOT NULL,
   `Nstatus` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`Nid`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Table structure for table `portInf`
---
+/*Data for the table `noticedata` */
 
-DROP TABLE IF EXISTS `portInf`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `portInf` (
+/*Table structure for table `portinf` */
+
+DROP TABLE IF EXISTS `portinf`;
+
+CREATE TABLE `portinf` (
   `port` int(11) NOT NULL,
   `PortExplan` text,
   PRIMARY KEY (`port`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `powerInf`
---
+/*Data for the table `portinf` */
 
-DROP TABLE IF EXISTS `powerInf`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `powerInf` (
+/*Table structure for table `powerinf` */
+
+DROP TABLE IF EXISTS `powerinf`;
+
+CREATE TABLE `powerinf` (
   `powerId` int(11) NOT NULL AUTO_INCREMENT,
   `powerName` varchar(255) NOT NULL,
   `powerExplan` text NOT NULL,
   `PowerStatus` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`powerId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `remoteRecord`
---
+/*Data for the table `powerinf` */
 
-DROP TABLE IF EXISTS `remoteRecord`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `remoteRecord` (
+/*Table structure for table `remoterecord` */
+
+DROP TABLE IF EXISTS `remoterecord`;
+
+CREATE TABLE `remoterecord` (
   `rrId` int(11) NOT NULL AUTO_INCREMENT,
   `sendNo` varchar(50) NOT NULL,
   `receiveNo` varchar(50) NOT NULL,
@@ -387,63 +347,55 @@ CREATE TABLE `remoteRecord` (
   `sendStatus` int(11) NOT NULL DEFAULT '0',
   `handleStatus` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`rrId`)
-) ENGINE=InnoDB AUTO_INCREMENT=464 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Table structure for table `roleInf`
---
+/*Data for the table `remoterecord` */
 
-DROP TABLE IF EXISTS `roleInf`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `roleInf` (
+/*Table structure for table `roleinf` */
+
+DROP TABLE IF EXISTS `roleinf`;
+
+CREATE TABLE `roleinf` (
   `roleId` int(11) NOT NULL AUTO_INCREMENT,
   `roleName` varchar(255) NOT NULL,
   `rolePNum` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`roleId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `rolePower`
---
+/*Data for the table `roleinf` */
 
-DROP TABLE IF EXISTS `rolePower`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `rolePower` (
+/*Table structure for table `rolepower` */
+
+DROP TABLE IF EXISTS `rolepower`;
+
+CREATE TABLE `rolepower` (
   `roleId` int(11) NOT NULL,
   `powerId` int(11) NOT NULL,
   PRIMARY KEY (`roleId`,`powerId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `selectCode`
---
+/*Data for the table `rolepower` */
 
-DROP TABLE IF EXISTS `selectCode`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `selectCode` (
+/*Table structure for table `selectcode` */
+
+DROP TABLE IF EXISTS `selectcode`;
+
+CREATE TABLE `selectcode` (
   `selectId` int(11) NOT NULL AUTO_INCREMENT,
   `selectTitle` varchar(255) NOT NULL,
   `selectBody` text,
   `selectStatus` int(11) NOT NULL DEFAULT '1',
   `selectExplain` text,
   PRIMARY KEY (`selectId`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Table structure for table `selfCheck`
---
+/*Data for the table `selectcode` */
 
-DROP TABLE IF EXISTS `selfCheck`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `selfCheck` (
+/*Table structure for table `selfcheck` */
+
+DROP TABLE IF EXISTS `selfcheck`;
+
+CREATE TABLE `selfcheck` (
   `usId` int(11) NOT NULL AUTO_INCREMENT,
   `userId` int(11) NOT NULL,
   `fileName` varchar(255) DEFAULT NULL,
@@ -454,18 +406,16 @@ CREATE TABLE `selfCheck` (
   `fileHash` char(32) CHARACTER SET latin1 DEFAULT NULL,
   PRIMARY KEY (`usId`),
   KEY `tem_userscan` (`userId`),
-  CONSTRAINT `tem_userscan` FOREIGN KEY (`userId`) REFERENCES `userInf` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=897 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  CONSTRAINT `tem_userscan` FOREIGN KEY (`userId`) REFERENCES `userinf` (`userId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Table structure for table `userErrInf`
---
+/*Data for the table `selfcheck` */
 
-DROP TABLE IF EXISTS `userErrInf`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `userErrInf` (
+/*Table structure for table `usererrinf` */
+
+DROP TABLE IF EXISTS `usererrinf`;
+
+CREATE TABLE `usererrinf` (
   `errId` int(11) NOT NULL AUTO_INCREMENT,
   `userId` int(11) NOT NULL,
   `errTime` datetime NOT NULL,
@@ -480,18 +430,16 @@ CREATE TABLE `userErrInf` (
   KEY `fileHash` (`fileHash`),
   KEY `userId` (`userId`),
   KEY `errTime` (`errTime`),
-  CONSTRAINT `userErrInf_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `userInf` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=5722 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  CONSTRAINT `userErrInf_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `userinf` (`userId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Table structure for table `userInf`
---
+/*Data for the table `usererrinf` */
 
-DROP TABLE IF EXISTS `userInf`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `userInf` (
+/*Table structure for table `userinf` */
+
+DROP TABLE IF EXISTS `userinf`;
+
+CREATE TABLE `userinf` (
   `userId` int(11) NOT NULL AUTO_INCREMENT,
   `userNo` varchar(30) NOT NULL,
   `userName` varchar(40) NOT NULL,
@@ -509,45 +457,41 @@ CREATE TABLE `userInf` (
   PRIMARY KEY (`userId`),
   UNIQUE KEY `userNo` (`userNo`),
   KEY `userNo_2` (`userNo`)
-) ENGINE=InnoDB AUTO_INCREMENT=1234795 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
---
--- Table structure for table `userPowerInf`
---
+/*Data for the table `userinf` */
 
-DROP TABLE IF EXISTS `userPowerInf`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `userPowerInf` (
+insert  into `userinf`(`userId`,`userNo`,`userName`,`userSex`,`userTel`,`userPosition`,`userStatus`,`registStatus`,`loginStatus`,`userIdentify`,`departmentId`,`userLever`,`userPasswd`,`userPositionStatus`) values (1,'2017141','超高管','null','null','超高管',1,0,0,'null',1,'null','*6A7A490FB9DC8C33C2B025A91737077A7E9CC5E5',2),(2,'2017142','超管','null','null','超管',1,0,0,'null',2,'null','*6A7A490FB9DC8C33C2B025A91737077A7E9CC5E5',2),(3,'2017143','普管','null','null','普管',1,0,0,'null',3,'null','*6A7A490FB9DC8C33C2B025A91737077A7E9CC5E5',1),(4,'2017144','一般人','null','null','一般人',1,0,0,'null',4,'null','*6A7A490FB9DC8C33C2B025A91737077A7E9CC5E5',0);
+
+/*Table structure for table `userpowerinf` */
+
+DROP TABLE IF EXISTS `userpowerinf`;
+
+CREATE TABLE `userpowerinf` (
   `userId` int(11) NOT NULL,
   `powerId` int(11) NOT NULL,
   PRIMARY KEY (`userId`,`powerId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `userRoleInf`
---
+/*Data for the table `userpowerinf` */
 
-DROP TABLE IF EXISTS `userRoleInf`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `userRoleInf` (
+/*Table structure for table `userroleinf` */
+
+DROP TABLE IF EXISTS `userroleinf`;
+
+CREATE TABLE `userroleinf` (
   `userId` int(11) NOT NULL,
   `roleId` int(11) NOT NULL,
   PRIMARY KEY (`userId`,`roleId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `userScan`
---
+/*Data for the table `userroleinf` */
 
-DROP TABLE IF EXISTS `userScan`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `userScan` (
+/*Table structure for table `userscan` */
+
+DROP TABLE IF EXISTS `userscan`;
+
+CREATE TABLE `userscan` (
   `usId` int(11) NOT NULL AUTO_INCREMENT,
   `fileName` varchar(255) DEFAULT NULL,
   `filePath` varchar(255) DEFAULT NULL,
@@ -558,15 +502,10 @@ CREATE TABLE `userScan` (
   `keyExtend` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`usId`)
 ) ENGINE=MyISAM AUTO_INCREMENT=15182 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*Data for the table `userscan` */
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2017-04-18 22:01:46
