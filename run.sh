@@ -69,23 +69,34 @@ fi
 
 #设置mysql
 #delete from mysql.user where user = 'safeUser';
-mysql -u root -h localhost password 'xaut.qll'
+#create user 'safeUser'@'localhost' identified by 'xaut.qll';
+#mysqladmin -u root -h localhost password 'xaut.qll'  
+cmdUser="select count(*) from mysql.user where user='safeUser';"
+usercount=$(mysql -uroot -p'xaut.qll' -s -e "${cmdUser}")
+if [ $usercount -eq 0 ]; then	
+createUser="create user 'safeUser'@'localhost' identified by 'xaut.qll';"
+createcount=$(mysql -uroot -p'xaut.qll' -s -e "${createUser}")
+if [ $createcount -eq 0 ]; then
+	echo "创建数据库用户失败！"
+fi
+else echo "数据库用户已存在！"
+fi	
 mysql -u root -h localhost -p'xaut.qll' <<EOF
 create database if not exists safeDb;
 create database if not exists session;
-create user 'safeUser'@'localhost' identified by 'xaut.qll';
 grant all privileges on safeDb.* to safeUser@localhost identified by 'xaut.qll';
 grant all privileges on session.* to safeUser@localhost identified by 'xaut.qll';
 flush privileges;
 EOF
 #导入数据库文件
 cmd="select count(*) from information_schema.tables where table_schema='userInf';"
-usercount=$(mysql -uroot -p'xaut.qll' -s -e "${cmd}")
-if [ $usercount -eq 0 ]; then
+tablecount=$(mysql -uroot -p'xaut.qll' -s -e "${cmd}")
+if [ $tablecount -eq 0 ]; then
 mysql -uroot -p'xaut.qll' safeDb < safeDbStruc.sql
 mysql -uroot -p'xaut.qll' session < sessionStruc.sql
 fi
-systemctl restart mysqld
+#systemctl restart mysqld
+systemctl restart mariadb
 
 #项目存储路径
 folder='/home/dev'
@@ -126,7 +137,8 @@ pip3 install uwsgi --upgrade
 cp ./supervisord.conf /etc/supervisord.conf
 supervisord -c /etc/supervisord.conf
 supervisorctl -c /etc/supervisord.conf start djangoWeb
-rm -rf Python-3.4.6
+fm -rf Python-3.4.6
+rm -rf 1
 clear
 
 echo "恭喜你项目已经成功部署啦。。。"
