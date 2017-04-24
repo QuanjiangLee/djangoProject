@@ -29,7 +29,7 @@ case $input in
 esac
 
 clear
-yum update
+yum update -y
 yum install -y vim
 
 #安装python3和pip3
@@ -55,25 +55,30 @@ fi
 pip3 install Django==1.10.5
 pip3 install pymysql
 pip3 install xlrd
+
 #安装mysql-community
+echo "安装mysql"
 if command -v mysql >/dev/null 2&>1; then
 	echo "mysql 已经存在！"
 else
-rpm -qa | grep mysql-community-release-el7-5.noarch &>/dev/null
+#rpm -qa | grep mysql-community-release-el7-5.noarch &>/dev/null
 if [ $? -ne 0 ]; then
 rpm -ivh mysql-community-release-el7-5.noarch.rpm
 fi
 #yum repolist enabled | grep "mysql.*-community*"
-yum install -y mysql -community-server
+yum install -y mysql-community-server
 fi
-
+sudo systemctl enable mysqld
+sudo systemctl start mysqld
 #设置mysql
-#delete from mysql.user where user = 'safeUser';
+#drop user 'safeUser'@'localhost';
+#flush privileges;
 #create user 'safeUser'@'localhost' identified by 'xaut.qll';
-#mysqladmin -u root -h localhost password 'xaut.qll'  
+mysqladmin -u root -h localhost password 'xaut.qll'  
 cmdUser="select count(*) from mysql.user where user='safeUser';"
 usercount=$(mysql -uroot -p'xaut.qll' -s -e "${cmdUser}")
 if [ $usercount -eq 0 ]; then	
+echo $usercount
 createUser="create user 'safeUser'@'localhost' identified by 'xaut.qll';"
 createcount=$(mysql -uroot -p'xaut.qll' -s -e "${createUser}")
 if [ $createcount -eq 0 ]; then
@@ -95,8 +100,8 @@ if [ $tablecount -eq 0 ]; then
 mysql -uroot -p'xaut.qll' safeDb < safeDbStruc.sql
 mysql -uroot -p'xaut.qll' session < sessionStruc.sql
 fi
-#systemctl restart mysqld
-systemctl restart mariadb
+systemctl restart mysqld
+#systemctl restart mariadb
 
 #项目存储路径
 folder='/home/dev'
@@ -136,8 +141,9 @@ pip install supervisor
 pip3 install uwsgi --upgrade
 cp ./supervisord.conf /etc/supervisord.conf
 supervisord -c /etc/supervisord.conf
+setsebool -P httpd_can_network_connect 1
 supervisorctl -c /etc/supervisord.conf start djangoWeb
-fm -rf Python-3.4.6
+rm -rf Python-3.4.6
 rm -rf 1
 clear
 
