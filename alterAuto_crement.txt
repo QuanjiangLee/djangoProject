@@ -1,0 +1,1 @@
+select concat('alter table',table_name,'auto_increment=0;') from information_schema.tables where table_schema = 'safeDb'
