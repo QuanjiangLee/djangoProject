@@ -144,6 +144,9 @@ pip3 install uwsgi --upgrade
 cp ./supervisord.conf /etc/supervisord.conf
 supervisord -c /etc/supervisord.conf
 setsebool -P httpd_can_network_connect 1
+chown -R nginx:nginx /home/dev/SafeProgram/
+chmod -R 775 /home/dev/SafeProgram/
+chcon -Rt httpd_sys_content_t /home/dev/SafeProgram/
 supervisorctl -c /etc/supervisord.conf start djangoWeb
 #supervisorctl -c /etc/supervisord.conf restart djangoWeb
 rm -rf Python-3.4.6
