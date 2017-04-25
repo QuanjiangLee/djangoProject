@@ -3,7 +3,6 @@
 #export PATH
 
 #clear
-
 set -e
 
 if [ ! -x "$0" ]; then
@@ -34,6 +33,7 @@ yum install -y vim
 
 #安装python3和pip3
 #xz -d Python-3.4.6.tar.xz
+
 if [ ! -f "/usr/bin/python3" ]; then
 tar -xvf Python-3.4.6.tar
 cd Python-3.4.6
@@ -45,13 +45,16 @@ cd ..
 fi
 
 #软链接python3和pip3到环境变量
+
 if [ ! -f "/usr/bin/python3" ]; then
 	ln -s /usr/local/python3/bin/python3 /usr/bin/python3
 fi
 if [ ! -f "/usr/bin/pip3" ]; then
 	ln -s /usr/local/python3/bin/pip3 /usr/bin/pip3
 fi
+
 #安装django 1.10.5 版
+
 pip3 install Django==1.10.5
 pip3 install pymysql
 pip3 install xlrd
@@ -70,6 +73,7 @@ yum install -y mysql-community-server
 fi
 sudo systemctl enable mysqld
 sudo systemctl start mysqld
+
 #设置mysql
 #drop user 'safeUser'@'localhost';
 #flush privileges;
@@ -93,6 +97,7 @@ grant all privileges on safeDb.* to safeUser@localhost identified by 'xaut.qll';
 grant all privileges on session.* to safeUser@localhost identified by 'xaut.qll';
 flush privileges;
 EOF
+
 #导入数据库文件
 cmd="select count(*) from information_schema.tables where table_schema='userInf';"
 tablecount=$(mysql -uroot -p'xaut.qll' -s -e "${cmd}")
@@ -116,6 +121,7 @@ echo "nginx exists"
 else
 rpm -ivh nginx-1.11.0-1.el7.ngx.x86_64.rpm
 fi
+
 #sudo yum install epel-release
 #sudo yum install python-devel nginx
 #mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.bakconf
@@ -125,32 +131,24 @@ mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.bak
 fi
 systemctl restart nginx
 
-#安装配置supervisord 和wsgi
-#pip3 install supervisor
+#安装升级pip2
 yum -y install epel-release
 yum -y install python-pip
-#tar xvf setuptools*.tar && cd setuptools-35.0.1 
-#python setup.py build
-#python setup.py install
-#cd ..
-#tar zxvf supervisor*.gz  && cd supervisor-3.3.1
-#python setup.py install
-#cd ..
 pip install --upgrade pip
+
+#安装配置supervisor 和wsgi
 pip install supervisor
 pip3 install uwsgi --upgrade
+
+#配置supervisor并运行
 cp ./supervisord.conf /etc/supervisord.conf
 supervisord -c /etc/supervisord.conf
 setsebool -P httpd_can_network_connect 1
 supervisorctl -c /etc/supervisord.conf start djangoWeb
+#supervisorctl -c /etc/supervisord.conf restart djangoWeb
 rm -rf Python-3.4.6
 rm -rf 1
 clear
 
 echo "恭喜你项目已经成功部署啦。。。"
-
-
-
-
-
 
