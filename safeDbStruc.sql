@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.6.35, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.36, for Linux (x86_64)
 --
 -- Host: localhost    Database: safeDb
 -- ------------------------------------------------------
--- Server version	5.6.35
+-- Server version	5.6.36
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -31,6 +31,15 @@ CREATE TABLE `adminLogin` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `adminLogin`
+--
+
+LOCK TABLES `adminLogin` WRITE;
+/*!40000 ALTER TABLE `adminLogin` DISABLE KEYS */;
+/*!40000 ALTER TABLE `adminLogin` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `alterHostIp`
 --
 
@@ -47,6 +56,15 @@ CREATE TABLE `alterHostIp` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `alterHostIp`
+--
+
+LOCK TABLES `alterHostIp` WRITE;
+/*!40000 ALTER TABLE `alterHostIp` DISABLE KEYS */;
+/*!40000 ALTER TABLE `alterHostIp` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `alterKeywords`
@@ -66,6 +84,15 @@ CREATE TABLE `alterKeywords` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `alterKeywords`
+--
+
+LOCK TABLES `alterKeywords` WRITE;
+/*!40000 ALTER TABLE `alterKeywords` DISABLE KEYS */;
+/*!40000 ALTER TABLE `alterKeywords` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `alterMAC`
 --
 
@@ -82,6 +109,15 @@ CREATE TABLE `alterMAC` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `alterMAC`
+--
+
+LOCK TABLES `alterMAC` WRITE;
+/*!40000 ALTER TABLE `alterMAC` DISABLE KEYS */;
+/*!40000 ALTER TABLE `alterMAC` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `computerInf`
@@ -109,6 +145,15 @@ CREATE TABLE `computerInf` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `computerInf`
+--
+
+LOCK TABLES `computerInf` WRITE;
+/*!40000 ALTER TABLE `computerInf` DISABLE KEYS */;
+/*!40000 ALTER TABLE `computerInf` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `dbBackInf`
 --
 
@@ -123,8 +168,17 @@ CREATE TABLE `dbBackInf` (
   `dbRemark` text,
   `userAcc` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`dbId`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `dbBackInf`
+--
+
+LOCK TABLES `dbBackInf` WRITE;
+/*!40000 ALTER TABLE `dbBackInf` DISABLE KEYS */;
+/*!40000 ALTER TABLE `dbBackInf` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `depaertRoleInf`
@@ -139,6 +193,15 @@ CREATE TABLE `depaertRoleInf` (
   PRIMARY KEY (`deparmentId`,`roleId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `depaertRoleInf`
+--
+
+LOCK TABLES `depaertRoleInf` WRITE;
+/*!40000 ALTER TABLE `depaertRoleInf` DISABLE KEYS */;
+/*!40000 ALTER TABLE `depaertRoleInf` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `departmentInf`
@@ -161,8 +224,18 @@ CREATE TABLE `departmentInf` (
   `createUser` varchar(255) NOT NULL,
   `status` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`departmentId`)
-) ENGINE=InnoDB AUTO_INCREMENT=134 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `departmentInf`
+--
+
+LOCK TABLES `departmentInf` WRITE;
+/*!40000 ALTER TABLE `departmentInf` DISABLE KEYS */;
+INSERT INTO `departmentInf` VALUES (1,'三级部门',0,1,NULL,'null',0,'一级部门','二级部门','2017-04-25 14:18:40','一级部门:二级部门:三级部门:超超管',0),(2,'三级部门',0,1,NULL,'null',0,'陕西省','二级部门','2017-04-25 14:19:18','一级部门:二级部门:三级部门:超超管',0),(3,'三级部门',0,1,NULL,'null',0,'陕西省','公安厅','2017-04-25 14:19:29','一级部门:二级部门:三级部门:超超管',0);
+/*!40000 ALTER TABLE `departmentInf` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `departmentKey`
@@ -177,6 +250,15 @@ CREATE TABLE `departmentKey` (
   PRIMARY KEY (`keyId`,`departmentId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `departmentKey`
+--
+
+LOCK TABLES `departmentKey` WRITE;
+/*!40000 ALTER TABLE `departmentKey` DISABLE KEYS */;
+/*!40000 ALTER TABLE `departmentKey` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `fileInf`
@@ -196,6 +278,15 @@ CREATE TABLE `fileInf` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `fileInf`
+--
+
+LOCK TABLES `fileInf` WRITE;
+/*!40000 ALTER TABLE `fileInf` DISABLE KEYS */;
+/*!40000 ALTER TABLE `fileInf` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `filePasswdInf`
 --
 
@@ -209,6 +300,15 @@ CREATE TABLE `filePasswdInf` (
   PRIMARY KEY (`passwdId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `filePasswdInf`
+--
+
+LOCK TABLES `filePasswdInf` WRITE;
+/*!40000 ALTER TABLE `filePasswdInf` DISABLE KEYS */;
+/*!40000 ALTER TABLE `filePasswdInf` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `filePasswdLog`
@@ -226,6 +326,15 @@ CREATE TABLE `filePasswdLog` (
   CONSTRAINT `filePasswdLog_ibfk_1` FOREIGN KEY (`passwdId`) REFERENCES `filePasswdInf` (`passwdId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `filePasswdLog`
+--
+
+LOCK TABLES `filePasswdLog` WRITE;
+/*!40000 ALTER TABLE `filePasswdLog` DISABLE KEYS */;
+/*!40000 ALTER TABLE `filePasswdLog` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `fileUploadInf`
@@ -246,8 +355,17 @@ CREATE TABLE `fileUploadInf` (
   KEY `fileHash` (`fileHash`),
   CONSTRAINT `fileUploadInf_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `userInf` (`userId`),
   CONSTRAINT `fileUploadInf_ibfk_2` FOREIGN KEY (`fileHash`) REFERENCES `fileInf` (`fileHash`)
-) ENGINE=InnoDB AUTO_INCREMENT=4875 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `fileUploadInf`
+--
+
+LOCK TABLES `fileUploadInf` WRITE;
+/*!40000 ALTER TABLE `fileUploadInf` DISABLE KEYS */;
+/*!40000 ALTER TABLE `fileUploadInf` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `keywordsInf`
@@ -263,8 +381,17 @@ CREATE TABLE `keywordsInf` (
   `createUserStatus` int(11) NOT NULL DEFAULT '0',
   `createUserId` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`keyId`)
-) ENGINE=InnoDB AUTO_INCREMENT=141 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `keywordsInf`
+--
+
+LOCK TABLES `keywordsInf` WRITE;
+/*!40000 ALTER TABLE `keywordsInf` DISABLE KEYS */;
+/*!40000 ALTER TABLE `keywordsInf` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `log`
@@ -284,6 +411,15 @@ CREATE TABLE `log` (
   CONSTRAINT `log_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `userInf` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `log`
+--
+
+LOCK TABLES `log` WRITE;
+/*!40000 ALTER TABLE `log` DISABLE KEYS */;
+/*!40000 ALTER TABLE `log` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `loginInf`
@@ -306,6 +442,15 @@ CREATE TABLE `loginInf` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `loginInf`
+--
+
+LOCK TABLES `loginInf` WRITE;
+/*!40000 ALTER TABLE `loginInf` DISABLE KEYS */;
+/*!40000 ALTER TABLE `loginInf` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `loginLog`
 --
 
@@ -320,8 +465,17 @@ CREATE TABLE `loginLog` (
   `lstatus` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`Lid`),
   KEY `userId` (`userId`)
-) ENGINE=MyISAM AUTO_INCREMENT=37250 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `loginLog`
+--
+
+LOCK TABLES `loginLog` WRITE;
+/*!40000 ALTER TABLE `loginLog` DISABLE KEYS */;
+/*!40000 ALTER TABLE `loginLog` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `noticeData`
@@ -337,8 +491,17 @@ CREATE TABLE `noticeData` (
   `Nbody` text NOT NULL,
   `Nstatus` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`Nid`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `noticeData`
+--
+
+LOCK TABLES `noticeData` WRITE;
+/*!40000 ALTER TABLE `noticeData` DISABLE KEYS */;
+/*!40000 ALTER TABLE `noticeData` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `portInf`
@@ -353,6 +516,15 @@ CREATE TABLE `portInf` (
   PRIMARY KEY (`port`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `portInf`
+--
+
+LOCK TABLES `portInf` WRITE;
+/*!40000 ALTER TABLE `portInf` DISABLE KEYS */;
+/*!40000 ALTER TABLE `portInf` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `powerInf`
@@ -371,6 +543,15 @@ CREATE TABLE `powerInf` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `powerInf`
+--
+
+LOCK TABLES `powerInf` WRITE;
+/*!40000 ALTER TABLE `powerInf` DISABLE KEYS */;
+/*!40000 ALTER TABLE `powerInf` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `remoteRecord`
 --
 
@@ -387,8 +568,17 @@ CREATE TABLE `remoteRecord` (
   `sendStatus` int(11) NOT NULL DEFAULT '0',
   `handleStatus` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`rrId`)
-) ENGINE=InnoDB AUTO_INCREMENT=464 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `remoteRecord`
+--
+
+LOCK TABLES `remoteRecord` WRITE;
+/*!40000 ALTER TABLE `remoteRecord` DISABLE KEYS */;
+/*!40000 ALTER TABLE `remoteRecord` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `roleInf`
@@ -406,6 +596,15 @@ CREATE TABLE `roleInf` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `roleInf`
+--
+
+LOCK TABLES `roleInf` WRITE;
+/*!40000 ALTER TABLE `roleInf` DISABLE KEYS */;
+/*!40000 ALTER TABLE `roleInf` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `rolePower`
 --
 
@@ -418,6 +617,15 @@ CREATE TABLE `rolePower` (
   PRIMARY KEY (`roleId`,`powerId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rolePower`
+--
+
+LOCK TABLES `rolePower` WRITE;
+/*!40000 ALTER TABLE `rolePower` DISABLE KEYS */;
+/*!40000 ALTER TABLE `rolePower` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `selectCode`
@@ -433,8 +641,17 @@ CREATE TABLE `selectCode` (
   `selectStatus` int(11) NOT NULL DEFAULT '1',
   `selectExplain` text,
   PRIMARY KEY (`selectId`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `selectCode`
+--
+
+LOCK TABLES `selectCode` WRITE;
+/*!40000 ALTER TABLE `selectCode` DISABLE KEYS */;
+/*!40000 ALTER TABLE `selectCode` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `selfCheck`
@@ -455,8 +672,17 @@ CREATE TABLE `selfCheck` (
   PRIMARY KEY (`usId`),
   KEY `tem_userscan` (`userId`),
   CONSTRAINT `tem_userscan` FOREIGN KEY (`userId`) REFERENCES `userInf` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=897 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `selfCheck`
+--
+
+LOCK TABLES `selfCheck` WRITE;
+/*!40000 ALTER TABLE `selfCheck` DISABLE KEYS */;
+/*!40000 ALTER TABLE `selfCheck` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `userErrInf`
@@ -481,8 +707,17 @@ CREATE TABLE `userErrInf` (
   KEY `userId` (`userId`),
   KEY `errTime` (`errTime`),
   CONSTRAINT `userErrInf_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `userInf` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=5722 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `userErrInf`
+--
+
+LOCK TABLES `userErrInf` WRITE;
+/*!40000 ALTER TABLE `userErrInf` DISABLE KEYS */;
+/*!40000 ALTER TABLE `userErrInf` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `userInf`
@@ -509,8 +744,18 @@ CREATE TABLE `userInf` (
   PRIMARY KEY (`userId`),
   UNIQUE KEY `userNo` (`userNo`),
   KEY `userNo_2` (`userNo`)
-) ENGINE=InnoDB AUTO_INCREMENT=1234795 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `userInf`
+--
+
+LOCK TABLES `userInf` WRITE;
+/*!40000 ALTER TABLE `userInf` DISABLE KEYS */;
+INSERT INTO `userInf` VALUES (1,'2017141','超高管','null','null','超高管',1,0,0,'null',1,'null','*6A7A490FB9DC8C33C2B025A91737077A7E9CC5E5',2),(2,'2017142','超管','null','null','超管',1,0,0,'null',2,'null','*6A7A490FB9DC8C33C2B025A91737077A7E9CC5E5',2),(3,'2017143','普管','null','null','普管',1,0,0,'null',3,'null','*6A7A490FB9DC8C33C2B025A91737077A7E9CC5E5',1),(4,'2017144','一般人','null','null','一般人',1,0,0,'null',4,'null','*6A7A490FB9DC8C33C2B025A91737077A7E9CC5E5',0);
+/*!40000 ALTER TABLE `userInf` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `userPowerInf`
@@ -527,6 +772,15 @@ CREATE TABLE `userPowerInf` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `userPowerInf`
+--
+
+LOCK TABLES `userPowerInf` WRITE;
+/*!40000 ALTER TABLE `userPowerInf` DISABLE KEYS */;
+/*!40000 ALTER TABLE `userPowerInf` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `userRoleInf`
 --
 
@@ -539,6 +793,15 @@ CREATE TABLE `userRoleInf` (
   PRIMARY KEY (`userId`,`roleId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `userRoleInf`
+--
+
+LOCK TABLES `userRoleInf` WRITE;
+/*!40000 ALTER TABLE `userRoleInf` DISABLE KEYS */;
+/*!40000 ALTER TABLE `userRoleInf` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `userScan`
@@ -557,8 +820,17 @@ CREATE TABLE `userScan` (
   `userId` int(11) DEFAULT NULL,
   `keyExtend` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`usId`)
-) ENGINE=MyISAM AUTO_INCREMENT=15182 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `userScan`
+--
+
+LOCK TABLES `userScan` WRITE;
+/*!40000 ALTER TABLE `userScan` DISABLE KEYS */;
+/*!40000 ALTER TABLE `userScan` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -569,4 +841,4 @@ CREATE TABLE `userScan` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-18 22:01:46
+-- Dump completed on 2017-04-25 14:37:00
