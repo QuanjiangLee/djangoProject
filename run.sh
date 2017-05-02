@@ -149,6 +149,9 @@ chmod -R 775 /home/dev/SafeProgram/
 chcon -Rt httpd_sys_content_t /home/dev/SafeProgram/
 supervisorctl -c /etc/supervisord.conf start djangoWeb
 #supervisorctl -c /etc/supervisord.conf restart djangoWeb
+cp supervisord.conf /usr/lib/systemd/system/
+systemctl enable supervisord
+echo "supervisorctl -c /etc/supervisord.conf start all" >> /etc/rc.local
 rm -rf Python-3.4.6
 rm -rf 1
 clear
