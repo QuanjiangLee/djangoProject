@@ -27,6 +27,9 @@ case $input in
         ;;
 esac
 
+read -r -p "请输入mysql数据库密码：" mysqlPasswd
+read -r -p "请确认mysql数据库密码：" mysqlPasswd2
+
 clear
 yum update -y
 yum install -y vim
