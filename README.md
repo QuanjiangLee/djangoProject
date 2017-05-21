@@ -15,7 +15,7 @@ sh run.sh //执行安装脚本
 * 后台解析语言：python2 python3 
 * python2模块：pip2 安装supervisor
 ```
-* python3模块：pip3模块安装管理器
+python3模块：pip3模块安装管理器
 	      pymysql:连接数据库模块
  	      Django==10.1.5
  	      xlrd：表格解析模块
