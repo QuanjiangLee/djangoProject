@@ -14,20 +14,18 @@ sh run.sh //执行安装脚本
 * WEB服务器：nginx
 * 后台解析语言：python2 python3 
 * python2模块：pip2 安装supervisor
-```
-python3模块：pip3模块安装管理器
+* python3模块：pip3模块安装管理器
 	      pymysql:连接数据库模块
  	      Django==10.1.5
  	      xlrd：表格解析模块
  	      uwsgi启动项目模块
- ```
 				
 ## 提供所需软件列表： ## 			
 * 1.Python-3.4.6源码安装包
 * 2.DjangoWeb项目源码
 * 3.nginx及其配置文件：nginx-1.11.0-1.el7.ngx.x86_64.rpm defaultssl.conf http.conf
 * 4.初始化数据库数据文件：initsql.txt
-* 5. mysql安装配置源的rpm包：mysql-community-release-el7-5.noarch.rpm
+* 5.mysql安装配置源的rpm包：mysql-community-release-el7-5.noarch.rpm
 * 6.一键安装脚本：run.sh
 * 7.两个数据库表结构文件：safeDbStruc.sql sessionStruc.sql
 * 8.supervisord配置文件：supervisord.conf  supervisord.bakconf
