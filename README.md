@@ -9,17 +9,19 @@ cd installProject //进入项目安装目录
 sh run.sh //执行安装脚本
 ```
 ## 安装环境： ##
-系统：CentOS 7 及以上
-数据库：mysql 5.7 或mariaDb 10.1 及以上
-WEB服务器：nginx
-后台解析语言：python2 python3 
-python2模块：pip2 安装supervisor
-python3模块：pip3模块安装管理器安装：
-				pymysql:连接数据库模块
- 				Django==10.1.5
- 				xlrd：表格解析模块
- 				uwsgi启动项目模块
- 				
+* 系统：CentOS 7 及以上
+* 数据库：mysql 5.7 或mariaDb 10.1 及以上
+* WEB服务器：nginx
+* 后台解析语言：python2 python3 
+* python2模块：pip2 安装supervisor
+```
+* python3模块：pip3模块安装管理器
+	      pymysql:连接数据库模块
+ 	      Django==10.1.5
+ 	      xlrd：表格解析模块
+ 	      uwsgi启动项目模块
+ ```
+				
 ## 提供所需软件列表： ## 			
 * 1.Python-3.4.6源码安装包
 * 2.DjangoWeb项目源码
