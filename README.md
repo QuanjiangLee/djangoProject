@@ -14,11 +14,11 @@ sh run.sh //执行安装脚本
 * WEB服务器：nginx
 * 后台解析语言：python2 python3 
 * python2模块：pip2 安装supervisor
-* python3模块：pip3模块安装管理器
-	      pymysql:连接数据库模块
- 	      Django==10.1.5
- 	      xlrd：表格解析模块
- 	      uwsgi启动项目模块
+* python3模块：pip3模块安装管理器;
+	      pymysql:连接数据库模块;
+ 	      Django==10.1.5;
+ 	      xlrd：表格解析模块;
+ 	      uwsgi启动项目模块;
 				
 ## 提供所需软件列表： ## 			
 * 1.Python-3.4.6源码安装包
@@ -30,7 +30,7 @@ sh run.sh //执行安装脚本
 * 7.两个数据库表结构文件：safeDbStruc.sql sessionStruc.sql
 * 8.supervisord配置文件：supervisord.conf  supervisord.bakconf
 * 9.supervisor服务文件(方便使用systemctl命令管理)：supervisord.service
-* 10. 修改表AUTO_INCREMENT值的文件： printAlterAuto_crementSQl.txt 	safeDbAuto_inrement.sql sessionAuto_increment.sql 
+* 10.修改表AUTO_INCREMENT值的文件： printAlterAuto_crementSQl.txt 	safeDbAuto_inrement.sql sessionAuto_increment.sql 
 
 
 ## 脚本执行过程中遇到的问题和解决方法
