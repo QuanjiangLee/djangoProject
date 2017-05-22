@@ -30,9 +30,8 @@ esac
 while :;
 do
 read -r -p "请输入mysql数据库密码：" -s  mysqlPasswd
-echo $mysqlPasswd
+echo ""
 read -r -p "请确认您输入的mysql数据库密码：" -s mysqlPasswd2
-echo $mysqlPasswd2
 if [ "$mysqlPasswd2" != "$mysqlPasswd" ];then
     echo "您输入的mysql密码不一致，请重新输入！";
 else 
@@ -82,7 +81,7 @@ pip3 install xlrd
 #安装mysql-community
 echo "安装mysql数据库..."
 
-if command -v mysql >/dev/null 2&>error.log; then
+if command -v mysql >/dev/null 2>error.log; then
 	echo "mysql 已经存在！"
 else
 #rpm -qa | grep mysql-community-release-el7-5.noarch &>/dev/null
@@ -92,15 +91,15 @@ fi
 #yum repolist enabled | grep "mysql.*-community*"
 yum install -y mysql-community-server
 fi
-sudo systemctl enable mysqld
-sudo systemctl start mysqld
+systemctl enable mysqld
+systemctl start mysqld
 
 #设置mysql
 echo "设置数据库密码和创建数据库用户safeUser..."
 #drop user 'safeUser'@'localhost';
 #flush privileges;
 #create user 'safeUser'@'localhost' identified by 'xaut.qll';
-mysqladmin -u root -h localhost password "$mysqlPasswd" >/dev/null 2&>error.log &  
+mysqladmin -u root -h localhost password "$mysqlPasswd" >/dev/null 2>error.log &  
 echo "continue..."
 mysql -uroot -p$mysqlPasswd -e "" &>/dev/null && echo "成功设置数据库密码！" || echo "数据库密码设置错误，您可能已经设置过密码了！请在error.log中查看详情。"
 
@@ -127,7 +126,7 @@ grant all privileges on session.* to safeUser@localhost identified by '${mysqlPa
 flush privileges;"
 
 grantDatabase= $(mysql -u root -h localhost -p$mysqlPasswd -s -e "${databaseSQL}");
-if [ $grantDatabase -eq 0 ]; then
+if [ $grantDatabase == 0 ]; then
     echo "创建数据库并赋予权限失败！"
 else echo "数据库用户并赋予权限成功！"
 fi  
@@ -158,7 +157,7 @@ cp -r ./djangoweb /home/dev/SafeProgram
 
 #安装nginx
 echo "安装nginx并配置nginx..."
-if command -v nginx >/dev/null 2&>error.log; then 
+if command -v nginx >/dev/null 2>error.log; then 
 echo "nginx exists"
 else
 rpm -ivh nginx-1.11.0-1.el7.ngx.x86_64.rpm
@@ -187,7 +186,7 @@ pip3 install uwsgi --upgrade
 #配置supervisor并运行
 echo "配置supervisor并运行..."
 cp ./supervisord.conf /etc/supervisord.conf
-supervisord -c /etc/supervisord.conf
+supervisord -c /etc/supervisord.conf >/dev/null 2>error.log &
 setsebool -P httpd_can_network_connect 1
 chown -R nginx:nginx /home/dev/SafeProgram/
 chmod -R 775 /home/dev/SafeProgram/
@@ -200,7 +199,7 @@ cp supervisord.service /usr/lib/systemd/system/
 systemctl enable supervisord
 echo "supervisorctl -c /etc/supervisord.conf start all" >> /etc/rc.local
 rm -rf Python-3.4.6
-clear
 
+clear
 echo "恭喜你项目已经成功部署啦。。。"
 
