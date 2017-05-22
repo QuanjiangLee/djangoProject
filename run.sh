@@ -29,10 +29,11 @@ esac
 
 while :;
 do
-read -r -p "请输入mysql数据库密码：" mysqlPasswd
-read -r -p "请确认您输入的mysql数据库密码：" mysqlPasswd2
-
-if [ $mysqlPasswd2 -ne $mysqlPasswd ];then
+read -r -p "请输入mysql数据库密码：" -s  mysqlPasswd
+echo $mysqlPasswd
+read -r -p "请确认您输入的mysql数据库密码：" -s mysqlPasswd2
+echo $mysqlPasswd2
+if [ "$mysqlPasswd2" != "$mysqlPasswd" ];then
     echo "您输入的mysql密码不一致，请重新输入！";
 else 
     break;
@@ -99,17 +100,19 @@ echo "设置数据库密码和创建数据库用户safeUser..."
 #drop user 'safeUser'@'localhost';
 #flush privileges;
 #create user 'safeUser'@'localhost' identified by 'xaut.qll';
-mysqladmin -u root -h localhost password $mysqlPasswd >/dev/null 2&>error.log;  
+mysqladmin -u root -h localhost password "$mysqlPasswd" >/dev/null 2&>error.log &  
+echo "continue..."
 mysql -uroot -p$mysqlPasswd -e "" &>/dev/null && echo "成功设置数据库密码！" || echo "数据库密码设置错误，您可能已经设置过密码了！请在error.log中查看详情。"
 
 cmdUser="select count(*) from mysql.user where user='safeUser';"
 usercount=$(mysql -uroot -p$mysqlPasswd -s -e "${cmdUser}")
 
+echo "continue..."
 if [ $usercount -eq 0 ]; then	
 echo $usercount
-createUser="create user 'safeUser'@'localhost' identified by $mysqlPasswd;"
+createUser="drop user 'safeUser'@'localhost';flush privileges;create user 'safeUser'@'localhost' identified by '${mysqlPasswd}';"
 createcount=$(mysql -uroot -p$mysqlPasswd -s -e "${createUser}")
-if [ $createcount -eq 0 ]; then
+if [ $createcount == 0 ]; then
 	echo "创建数据库用户失败！"
 fi
 else echo "数据库用户已存在！"
@@ -117,7 +120,7 @@ fi
 
 echo "创建数据库并赋予权限..."
 
-databaseSQL = "create database if not exists safeDb;
+databaseSQL="create database if not exists safeDb;
 create database if not exists session;
 grant all privileges on safeDb.* to safeUser@localhost identified by '${mysqlPasswd}';
 grant all privileges on session.* to safeUser@localhost identified by '${mysqlPasswd}';
@@ -126,7 +129,6 @@ flush privileges;"
 grantDatabase= $(mysql -u root -h localhost -p$mysqlPasswd -s -e "${databaseSQL}");
 if [ $grantDatabase -eq 0 ]; then
     echo "创建数据库并赋予权限失败！"
-fi
 else echo "数据库用户并赋予权限成功！"
 fi  
 
@@ -137,7 +139,7 @@ echo "导入数据库文件并重启数据库"
 cmd="select count(*) from information_schema.tables where table_schema='userInf';"
 tablecount=$(mysql -uroot -p$mysqlPasswd -s -e "${cmd}")
 
-if [ $tablecount -eq 0 ]; then
+if [ $tablecount == 0 ]; then
 mysql -uroot -p'xaut.qll' safeDb < safeDbStruc.sql
 mysql -uroot -p'xaut.qll' session < sessionStruc.sql
 fi
@@ -192,8 +194,8 @@ chmod -R 775 /home/dev/SafeProgram/
 chcon -Rt httpd_sys_content_t /home/dev/SafeProgram/
 
 echo "启动项目进程..."
-supervisorctl -c /etc/supervisord.conf start djangoWeb
-#supervisorctl -c /etc/supervisord.conf restart djangoWeb
+supervisorctl -c /etc/supervisord.conf start DjangoWeb
+#supervisorctl -c /etc/supervisord.conf restart DjangoWeb
 cp supervisord.service /usr/lib/systemd/system/
 systemctl enable supervisord
 echo "supervisorctl -c /etc/supervisord.conf start all" >> /etc/rc.local
