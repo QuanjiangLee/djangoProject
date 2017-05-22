@@ -5,15 +5,15 @@
 #clear
 set -e
 
+if [[ $EUID -ne 0 ]]; then
+     echo "错误:请在root用户权限下运行!" 1>&2;
+     exit 1;
+fi
+
 if [ ! -x "$0" ]; then
     chmod +x "$0"
     echo "已为此文件添加可执行权限，请再次运行安装命令！";
     exit 1;
-fi
-
-if [[ $EUID -ne 0 ]]; then
-     echo "错误:请在root用户权限下运行!" 1>&2;
-     exit 1;
 fi
 
 read -r -p "您确定要运行安装项目程序吗? [Y/n] " input
