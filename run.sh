@@ -22,32 +22,47 @@ case $input in
             echo "您选择了YES!"
             ;;
 *)
-        echo "安装停止！"
+        echo "你选择了其他选项，安装停止！"
         exit 1;
         ;;
 esac
 
+while :;
+do
 read -r -p "请输入mysql数据库密码：" mysqlPasswd
-read -r -p "请确认mysql数据库密码：" mysqlPasswd2
+read -r -p "请确认您输入的mysql数据库密码：" mysqlPasswd2
+
+if [ $mysqlPasswd2 -ne $mysqlPasswd ];then
+    echo "您输入的mysql密码不一致，请重新输入！";
+else 
+    break;
+fi
+done
 
 clear
+
+echo "开始安装准备..."
+
 yum update -y
+yum groupinstall -y 'Development Tools'
+yum install -y zlib-devel bzip2-devel openssl-devel ncurese-devel
 yum install -y vim
 
 #安装python3和pip3
 #xz -d Python-3.4.6.tar.xz
+echo "安装python3和pip3..."
 
 if [ ! -f "/usr/bin/python3" ]; then
 tar -xvf Python-3.4.6.tar
 cd Python-3.4.6
-yum groupinstall -y 'Development Tools'
-yum install -y zlib-devel bzip2-devel openssl-devel ncurese-devel
 ./configure --prefix=/usr/local/python3
 make && make install
 cd ..
 fi
 
 #软链接python3和pip3到环境变量
+
+echo "添加python3到环境变量..."
 
 if [ ! -f "/usr/bin/python3" ]; then
 	ln -s /usr/local/python3/bin/python3 /usr/bin/python3
@@ -57,14 +72,16 @@ if [ ! -f "/usr/bin/pip3" ]; then
 fi
 
 #安装django 1.10.5 版
+echo "安装django和所需模块..."
 
 pip3 install Django==1.10.5
 pip3 install pymysql
 pip3 install xlrd
 
 #安装mysql-community
-echo "安装mysql"
-if command -v mysql >/dev/null 2&>1; then
+echo "安装mysql数据库..."
+
+if command -v mysql >/dev/null 2&>error.log; then
 	echo "mysql 已经存在！"
 else
 #rpm -qa | grep mysql-community-release-el7-5.noarch &>/dev/null
@@ -78,40 +95,59 @@ sudo systemctl enable mysqld
 sudo systemctl start mysqld
 
 #设置mysql
+echo "设置数据库密码和创建数据库用户safeUser..."
 #drop user 'safeUser'@'localhost';
 #flush privileges;
 #create user 'safeUser'@'localhost' identified by 'xaut.qll';
-mysqladmin -u root -h localhost password 'xaut.qll'  
+mysqladmin -u root -h localhost password $mysqlPasswd >/dev/null 2&>error.log;  
+mysql -uroot -p$mysqlPasswd -e "" &>/dev/null && echo "成功设置数据库密码！" || echo "数据库密码设置错误，您可能已经设置过密码了！请在error.log中查看详情。"
+
 cmdUser="select count(*) from mysql.user where user='safeUser';"
-usercount=$(mysql -uroot -p'xaut.qll' -s -e "${cmdUser}")
+usercount=$(mysql -uroot -p$mysqlPasswd -s -e "${cmdUser}")
+
 if [ $usercount -eq 0 ]; then	
 echo $usercount
-createUser="create user 'safeUser'@'localhost' identified by 'xaut.qll';"
-createcount=$(mysql -uroot -p'xaut.qll' -s -e "${createUser}")
+createUser="create user 'safeUser'@'localhost' identified by $mysqlPasswd;"
+createcount=$(mysql -uroot -p$mysqlPasswd -s -e "${createUser}")
 if [ $createcount -eq 0 ]; then
 	echo "创建数据库用户失败！"
 fi
 else echo "数据库用户已存在！"
 fi	
-mysql -u root -h localhost -p'xaut.qll' <<EOF
-create database if not exists safeDb;
+
+echo "创建数据库并赋予权限..."
+
+databaseSQL = "create database if not exists safeDb;
 create database if not exists session;
-grant all privileges on safeDb.* to safeUser@localhost identified by 'xaut.qll';
-grant all privileges on session.* to safeUser@localhost identified by 'xaut.qll';
-flush privileges;
-EOF
+grant all privileges on safeDb.* to safeUser@localhost identified by '${mysqlPasswd}';
+grant all privileges on session.* to safeUser@localhost identified by '${mysqlPasswd}';
+flush privileges;"
+
+grantDatabase= $(mysql -u root -h localhost -p$mysqlPasswd -s -e "${databaseSQL}");
+if [ $grantDatabase -eq 0 ]; then
+    echo "创建数据库并赋予权限失败！"
+fi
+else echo "数据库用户并赋予权限成功！"
+fi  
+
 
 #导入数据库文件
+echo "导入数据库文件并重启数据库"
+
 cmd="select count(*) from information_schema.tables where table_schema='userInf';"
-tablecount=$(mysql -uroot -p'xaut.qll' -s -e "${cmd}")
+tablecount=$(mysql -uroot -p$mysqlPasswd -s -e "${cmd}")
+
 if [ $tablecount -eq 0 ]; then
 mysql -uroot -p'xaut.qll' safeDb < safeDbStruc.sql
 mysql -uroot -p'xaut.qll' session < sessionStruc.sql
 fi
+
 systemctl restart mysqld
 #systemctl restart mariadb
 
 #项目存储路径
+echo "正在存放项目到/home/dev目录下..."
+
 folder='/home/dev'
 if [ ! -d "$folder" ]; then
     mkdir -p "$folder"
@@ -119,7 +155,8 @@ fi
 cp -r ./djangoweb /home/dev/SafeProgram
 
 #安装nginx
-if command -v nginx >/dev/null 2&>1; then 
+echo "安装nginx并配置nginx..."
+if command -v nginx >/dev/null 2&>error.log; then 
 echo "nginx exists"
 else
 rpm -ivh nginx-1.11.0-1.el7.ngx.x86_64.rpm
@@ -135,28 +172,32 @@ fi
 systemctl restart nginx
 
 #安装升级pip2
+echo "安装升级pip2..."
 yum -y install epel-release
 yum -y install python-pip
 pip install --upgrade pip
 
 #安装配置supervisor 和wsgi
+echo "安装配置supervisor和wsgi..."
 pip install supervisor
 pip3 install uwsgi --upgrade
 
 #配置supervisor并运行
+echo "配置supervisor并运行..."
 cp ./supervisord.conf /etc/supervisord.conf
 supervisord -c /etc/supervisord.conf
 setsebool -P httpd_can_network_connect 1
 chown -R nginx:nginx /home/dev/SafeProgram/
 chmod -R 775 /home/dev/SafeProgram/
 chcon -Rt httpd_sys_content_t /home/dev/SafeProgram/
+
+echo "启动项目进程..."
 supervisorctl -c /etc/supervisord.conf start djangoWeb
 #supervisorctl -c /etc/supervisord.conf restart djangoWeb
-cp supervisord.conf /usr/lib/systemd/system/
+cp supervisord.service /usr/lib/systemd/system/
 systemctl enable supervisord
 echo "supervisorctl -c /etc/supervisord.conf start all" >> /etc/rc.local
 rm -rf Python-3.4.6
-rm -rf 1
 clear
 
 echo "恭喜你项目已经成功部署啦。。。"
