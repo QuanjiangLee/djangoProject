@@ -1,0 +1,31 @@
+<div class="platformExplain" style="padding:10px 20px;">
+    <img src="../static/images/left.png" width="14" height="14" />
+    <span style="font-weight:600;">平台简介</span> <hr style="border:1px dashed #CCC;"/>
+    <div class="platformExplainBody"><div class="imgdiv">
+        <img src="../static/images/timg.png" width="60" height="60" align="top" />
+    </div>
+        <p></p>
+    </div>
+</div>
+<div class=" platformExplain" style="padding:10px 20px;">
+    <img src="../static/images/left.png" width="14" height="14" />
+    <span style="font-weight:600;">报警统计</span>
+	<select id="selectStatus" onchange="selectStatus()" style="min-height: 25px;">
+			<option>涉密</option>
+			<option>未处理</option>
+	</select>
+    <span id="errorMore" onclick="errorMoreClick()" style="cursor:pointer; float:right; text-align:center; margin-right:20px;">更多>></span>
+    <hr style="border:1px dashed #CCC;"/>
+    <div id="platformExplainBody1" style="padding:10px 30px;min-height: 200px;">
+        <table class="table table-hover" style="width:100%;table-layout:fixed">
+            <thead><tr><th width="14%">二级部门</th><th width="14%">三级部门</th><th width="17%">责任人</th><th width="21%">mac地址</th><th width="21%">ip地址</th><th width="13%">报警次数</th></thead>
+            <tbody id="errData"></tbody>
+        </table>
+    </div>
+	<div id="platformExplainBody2" style="padding:10px 30px;min-height: 200px;display:none">
+        <table class="table table-hover" style="width:100%;table-layout:fixed;">
+            <thead><tr><th width="27%">一级部门</th><th width="27%">二级部门</th><th width="27%">报警次数</th><th width="19%">操作</th></thead>
+            <tbody id="errData" ></tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+﻿<div style="border-bottom:1px solid #CCC;">
+    <div style="width:150px; height:44px; margin:10px; display:inline-block;">
+        <img src="../static/images/bz1.png" width="40px" height="40px" style="border-radius:20px;" />
+        <span style="margin-left:20px; font-weight:600; font-size:1.3em;">密码修改</span>
+    </div>
+    </div>
+  <form>
+  <div>
+  <div class="row">
+    <div class="col-md-8" style="border-radius: 5px; background:#fff; margin-top:50px;margin-left: 28%" >
+    <font size="4">请输入原密码<span style="color:#f33">*</span>：</font>
+	<input type="password" name="oldPasswd" onblur="oldPwd_check()" style="margin-top: 20px" placeholder="原密码"/><span id="oldPassMsg" style="margin-left: 2px; color:green"></span><br>
+	<font size="4">请输入新密码<span style="color:#f33">*</span>：</font>
+	<input type="password" name="newPasswd" style="margin-top: 20px" placeholder="新密码"/><span id="newPassMsg" style="margin-left: 2px; color:#f33"></span><br>
+	<font size="4">请重复新密码<span style="color:#f33">*</span>：</font>
+	<input  type="password" name="newPasswdRep"  style="margin-top: 20px;" placeholder="重复新密码"/><span id="newPassRepMsg" style="margin-left: 2px; color:#f33"></span><br>
+	<input type="button"  name="submit" onclick="passwd_Sub()" class="btn btn-info" value="修改密码" style="margin-left:80px;margin-top: 20px"/>
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="reset" class="btn btn-default" name="btnreset" onclick="btnreset_ok()" value="重置" style="margin-top: 20px"/>
+	</div>	
+	</div>
+	</div>
+  </form>

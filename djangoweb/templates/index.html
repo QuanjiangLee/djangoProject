@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	{% load staticfiles %}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>主页</title>
+    <script type="text/javascript" src="/static/js/get/jquery.js"></script>
+	<script src="/static/bootstrap/js/bootstrap.js"></script>
+	<script type="text/javascript" src="/static/js/get/ajaxfileupload1.js"></script>
+    <script type="text/javascript" src="/static/js/get/oprate.js"></script>
+    <script type="text/javascript" src="/static/js/get/jqueryAjax.js"></script>
+    <script type="text/javascript" src="/static/js/show/alert_method.js"></script>
+    <script type="text/javascript" src="/static/js/show/index.js"></script>
+    <script type="text/javascript" src="/static/bootstrap/js/bootstrap-dialog.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="/static/css/lq.datetimepick.css"/>
+    <script src='/static/js/show/selectUi.js' type='text/javascript'></script>
+	<script src='/static/js/show/lq.datetimepick.js' type='text/javascript'></script>
+	
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css">
+    <link  rel="stylesheet" type="text/css" href="/static/css/index.css" />
+    <script type="text/javascript">
+         window.history.forward();
+    </script>
+    <script type="text/javascript">
+    </script>
+	
+	<script src="/static/js/show/modernizr-2.8.2.js"></script>
+	<link rel="stylesheet" href="/static/css/load.css">
+	
+</head>
+
+<body>
+
+<div  id="LoadingBar" style="display:none">
+	<div class="load-container load">
+		<div class="loader"></div>
+	</div>
+	<div id="load" class="source hidden"></div>
+</div>
+
+	<div class="bodyTitle">
+         <!--<span id="quit" onclick="quit()" style="width:60px; margin-right:25px; text-align:center; color:#efefef; background:#339dd5; float:right; cursor:pointer; height:25px; line-height:25px; margin-top:10px;">注销</span>-->
+    </div>
+<div class="titleBody">
+
+    <div class="title">
+        <div style="padding:50px 50px; text-align:left;">
+            <span style="font-weight:800;font-size:1.8em;">互联网终端保密监管平台</span><br>
+            <span style="font-weight:400;font-size:0.7em; font-family:楷体;">HULIANWANG ZHONGDUAN BAOMI JIANGUAN PINGTAI</span>
+			<span class="glyphicon glyphicon-info-sign" style="cursor:pointer" id="grantInfo"></span>
+			<div style="display:none;background-color:#fff;position:absolute;width:300px;border:1px solid #000;border-radius:3px;z-index:1;color:#000;padding:10px;line-height:20px;float:none" id="grantDetail"></div>
+            <label id="isAdmin" style="display: none;"></label>
+			<label id="wPage" style="display: none;">0</label>
+			<label id="errStatus" style="display: none;">1</label>
+            <span id="errorName" style="display: none;"></span>
+        </div>
+        <span style="float: right; padding-top: 0; padding-bottom: 0; cursor: pointer; margin-right: 80px; position: relative;top:-20px;">
+            <li class="dropdown" style="list-style-type: none;">
+                <a class="dropdown-toggle" data-toggle="dropdown" style="color:#ddd;">
+                     <span id="department"></span><b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" style="max-height: 300px; overflow: auto;" id = "depul">
+                </ul>
+            </li>
+        </span>
+        <span style="float: right; padding-top: 0; padding-bottom: 0; margin-right: 15px; cursor: pointer; position: relative;top:-20px;">
+            <li class="dropdown" style="list-style-type: none;">
+                <a class="dropdown-toggle" data-toggle="dropdown" style="color:#ddd;">
+                     <span id="city" get="false"></span><b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" style="max-height: 300px; overflow: auto;">
+                </ul>
+            </li>
+        </span>
+        <span style="float: right; padding-top: 0; padding-bottom: 0; cursor: pointer; margin-right: 15px; position: relative;top:-20px;">
+            <li class="dropdown" style="list-style-type: none;">
+                <a class="dropdown-toggle" data-toggle="dropdown" style="color:#ddd;">
+                     <span id="province" get="false"></span><b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" style="max-height: 300px; overflow: auto;">
+                </ul>
+            </li>
+        </span>
+    </div>
+    <div class="index">
+        <div onclick="firstClick()">首&nbsp;&nbsp;页</div>
+        <div onclick="getUserErr()">报警动态</div>
+        <div onclick="userManage()">人员管理</div>
+        <div onclick="connClick()">远程管理</div>
+        <div id="departManage" onclick="departManage()">部门管理</div>
+        <div onclick="keyClick()">关键字管理</div>
+        <!--<div>
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" style="font-weight:600">
+                涉密信息管理 <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu" id="fileManage">
+                <li onclick="keyClick()"><a style="font-weight:600">关键字列表</a></li>
+            </ul>
+        </li>
+        </div>-->
+        <div id="about" onclick="aboutClick()">关于平台</div>
+        <span style="float: right; margin-right: -180px;font-family:楷体; color:#fefefe;"><span id="userDep">管理员</span>:<span id="userManager">张三</span></span>
+         <span id="quit" onclick="quit()" style="width:60px; text-align:center; color:#efefef; background:#339dd5; float:right; margin-right: -255px; cursor:pointer; height:25px; line-height:25px; margin-top:0.75%;">注销</span>
+        <!--<span id="quit" onclick="quit()" style="width:50px; margin-right:12px; text-align:center; color:#efefef; background:#339dd5; float:right; cursor:pointer; height:25px; line-height:25px; margin-top:-3.2%;">注销</span>-->
+    </div>
+    <div id="showData" class="alert alert-danger"></div>
+</div>
+<div class="body" id="body">
+</div>
+<div class="bottom"></div>
+</body>
+</html>

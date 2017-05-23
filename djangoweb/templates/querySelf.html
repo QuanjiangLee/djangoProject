@@ -1,0 +1,22 @@
+<div style="border-bottom:1px solid #CCC;">
+    <div style="width:150px; height:44px; margin:10px; display:inline-block;">
+        <img src="../static/images/bz1.png" width="40px" height="40px" style="border-radius:20px;" />
+        <span style="margin-left:20px; font-weight:600; font-size:1.3em;">个人自查</span>
+    </div>
+    </div>
+<div class="row">
+<div class="col-md-12 data" >
+<ul id="querySelf" class="list-group" style="height:150px;text-align: center">
+<li class="list-group-item">部门： <span id="partNum"  style="width:200px;"></span></li>
+<li class="list-group-item">工号： <span id="jobNum"  style="width:200px;"></span></li>
+<li class="list-group-item">在线状态： <span id="onlinestatus"  style="width:200px;"></span></li>
+<li class="list-group-item">MAC地址：  <span id="macNum" style="width:200px;"></span></li>
+<li class="list-group-item">ip地址：<span id="ipNum"  style="width:200px;"></span></li>
+<div style="margin-top: 10px">
+<input type="button"  id="scanbutton" style="margin-left:72.5px; line-height:10px;" class="btn btn-success btn-lg" value="自查扫描" ><span id="loadingClass" class="btn btn-lg" style="padding:0 px;margin-left: -10px" ></span>
+<input type="button" class="btn btn-info btn-lg" onclick="get_user_query()" style="margin-left:15px; line-height:10px;" value="查看记录"><small><span  id="loadingClass" ></span></small>
+<input type="button" class="btn btn-default btn-lg" onclick="get_querySelf()" style="margin-left:40px; height:30px; line-height:10px;" value="刷新">
+</div>
+</ul>
+</div>
+</div>
