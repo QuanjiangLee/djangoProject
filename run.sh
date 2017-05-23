@@ -27,20 +27,23 @@ case $input in
         ;;
 esac
 
-while :;
-do
-read -r -p "请输入mysql数据库密码：" -s  mysqlPasswd
-echo ""
-read -r -p "请确认您输入的mysql数据库密码：" -s mysqlPasswd2
-if [ "$mysqlPasswd2" != "$mysqlPasswd" ];then
-    echo "您输入的mysql密码不一致，请重新输入！";
-else 
-    break;
-fi
-done
+#让用户自定义数据库密码（暂时注释）
+#while :;
+#do
+#read -r -p "请输入mysql数据库密码：" -s  mysqlPasswd
+#echo ""
+#read -r -p "请确认您输入的mysql数据库密码：" -s mysqlPasswd2
+#if [ "$mysqlPasswd2" != "$mysqlPasswd" ];then
+#    echo "您输入的mysql密码不一致，请重新输入！";
+#else 
+#    break;
+#fi
+#done
+
+#初始化数据库密码为'xaut.qll'
+mysqlPasswd='xaut.qll'
 
 clear
-
 echo "开始安装准备..."
 
 yum update -y
