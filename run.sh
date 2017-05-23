@@ -119,6 +119,7 @@ fi
 
 echo "创建数据库并赋予权限..."
 
+#创建safeUser数据库用户并赋予其权限
 databaseSQL="create database if not exists safeDb;
 create database if not exists session;
 grant all privileges on safeDb.* to safeUser@localhost identified by '${mysqlPasswd}';
@@ -199,7 +200,9 @@ cp supervisord.service /usr/lib/systemd/system/
 systemctl enable supervisord
 echo "supervisorctl -c /etc/supervisord.conf start all" >> /etc/rc.local
 rm -rf Python-3.4.6
+rm -rf djangoweb
 
 clear
 echo "恭喜你项目已经成功部署啦。。。"
+
 
