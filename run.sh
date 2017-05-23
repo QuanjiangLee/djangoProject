@@ -117,7 +117,7 @@ createcount=$(mysql -uroot -p$mysqlPasswd -s -e "${createUser}")
 if [ $createcount == 0 ]; then
 	echo "创建数据库用户失败！"
 fi
-else echo "数据库用户已存在！"
+else echo "创建数据库用户成功！"
 fi	
 
 echo "创建数据库并赋予权限..."
@@ -132,7 +132,7 @@ flush privileges;"
 grantDatabase= $(mysql -u root -h localhost -p$mysqlPasswd -s -e "${databaseSQL}");
 if [ $grantDatabase == 0 ]; then
     echo "创建数据库并赋予权限失败！"
-else echo "数据库用户并赋予权限成功！"
+else echo "创建数据库并赋予权限成功！"
 fi  
 
 
@@ -143,8 +143,8 @@ cmd="select count(*) from information_schema.tables where table_schema='userInf'
 tablecount=$(mysql -uroot -p$mysqlPasswd -s -e "${cmd}")
 
 if [ $tablecount == 0 ]; then
-mysql -uroot -p'xaut.qll' safeDb < safeDbStruc.sql
-mysql -uroot -p'xaut.qll' session < sessionStruc.sql
+mysql -uroot -p$mysqlPasswd safeDb < safeDbStruc.sql
+mysql -uroot -p$mysqlPasswd session < sessionStruc.sql
 fi
 
 systemctl restart mysqld
