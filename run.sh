@@ -99,12 +99,15 @@ systemctl start mysqld
 
 #设置mysql
 echo "设置数据库密码和创建数据库用户safeUser..."
-#drop user 'safeUser'@'localhost';
-#flush privileges;
-#create user 'safeUser'@'localhost' identified by 'xaut.qll';
+#drop user 'safeUser'@'localhost';flush privileges;   ---drop databaseUser
+#create user 'safeUser'@'localhost' identified by 'xaut.qll'; ---create databaseUser
 mysqladmin -u root -h localhost password "$mysqlPasswd" >/dev/null 2>error.log &  
 echo "continue..."
-mysql -uroot -p$mysqlPasswd -e "" &>/dev/null && echo "成功设置数据库密码！" || echo "数据库密码设置错误，您可能已经设置过密码了！请在error.log中查看详情。"
+mysql -uroot -p$mysqlPasswd -e "" &>/dev/null
+if [ $? -ne 0 ]; then
+    echo "数据库密码设置可能错误或者您已设置过密码了,请在error.log中查看错误！"
+else echo "成功设置数据库密码！"
+fi
 
 cmdUser="select count(*) from mysql.user where user='safeUser';"
 usercount=$(mysql -uroot -p$mysqlPasswd -s -e "${cmdUser}")
@@ -112,13 +115,14 @@ usercount=$(mysql -uroot -p$mysqlPasswd -s -e "${cmdUser}")
 echo "continue..."
 if [ $usercount -eq 0 ]; then	
 echo $usercount
-createUser="drop user 'safeUser'@'localhost';flush privileges;create user 'safeUser'@'localhost' identified by '${mysqlPasswd}';"
+createUser="create user 'safeUser'@'localhost' identified by '${mysqlPasswd}';"
+else createUser="drop user 'safeUser'@'localhost';flush privileges;create user 'safeUser'@'localhost' identified by '${mysqlPasswd}';"
+fi	
 createcount=$(mysql -uroot -p$mysqlPasswd -s -e "${createUser}")
 if [ $createcount == 0 ]; then
-	echo "创建数据库用户失败！"
-fi
+    echo "创建数据库用户失败！"
 else echo "创建数据库用户成功！"
-fi	
+fi
 
 echo "创建数据库并赋予权限..."
 
@@ -201,7 +205,9 @@ supervisorctl -c /etc/supervisord.conf start DjangoWeb
 #supervisorctl -c /etc/supervisord.conf restart DjangoWeb
 cp supervisord.service /usr/lib/systemd/system/
 systemctl enable supervisord
-echo "supervisorctl -c /etc/supervisord.conf start all" >> /etc/rc.local
+cp restartService.sh  /home/dev/
+echo "/home/dev/restartService.sh" >> /etc/rc.local
+chmod +x /etc/init.d/rc.local
 rm -rf Python-3.4.6
 rm -rf djangoweb
 
