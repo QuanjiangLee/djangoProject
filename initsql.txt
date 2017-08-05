@@ -2,10 +2,10 @@
 
 
 userInf:
-INSERT INTO userInf(userNo,userName,userPosition,userStatus,departmentId,userPasswd,userPositionStatus)VALUES("2017141","超高管","超高管",1,1,PASSWORD(1234567),2);
-INSERT INTO userInf(userNo,userName,userPosition,userStatus,departmentId,userPasswd,userPositionStatus)VALUES("2017142","超管","超管",1,2,PASSWORD(1234567),2);
-INSERT INTO userInf(userNo,userName,userPosition,userStatus,departmentId,userPasswd,userPositionStatus)VALUES("2017143","普管","普管",1,3,PASSWORD(1234567),1);
-INSERT INTO userInf(userNo,userName,userPosition,userStatus,departmentId,userPasswd,userPositionStatus)VALUES("2017144","一般人","一般人",1,4,PASSWORD(1234567),0);
+INSERT INTO userInf(userNo,userName,userPosition,userStatus,departmentId,userPasswd,userPositionStatus)VALUES("1234567","超高管","超高管",1,1,PASSWORD(1234567),2);
+INSERT INTO userInf(userNo,userName,userPosition,userStatus,departmentId,userPasswd,userPositionStatus)VALUES("1234568","超管","超管",1,2,PASSWORD(1234567),2);
+INSERT INTO userInf(userNo,userName,userPosition,userStatus,departmentId,userPasswd,userPositionStatus)VALUES("1234569","普管","普管",1,3,PASSWORD(1234567),1);
+INSERT INTO userInf(userNo,userName,userPosition,userStatus,departmentId,userPasswd,userPositionStatus)VALUES("1234570","一般人","一般人",1,4,PASSWORD(1234567),0);
 
 
 departmentInf:
