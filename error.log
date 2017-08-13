@@ -1,2 +1,2 @@
-Error: Another program is already listening on a port that one of our HTTP servers is configured to use.  Shut this program down first before starting supervisord.
+Error: The directory named as part of the path /var/log/recvfile/stdout.log does not exist in section 'program:RecvFile' (file: '/etc/supervisord.conf')
 For help, use /usr/bin/supervisord -h

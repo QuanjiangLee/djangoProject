@@ -112,7 +112,7 @@ usercount=$(mysql -uroot -p$mysqlPasswd -s -e "${cmdUser}")
 echo "continue..."
 if [ $usercount -eq 0 ]; then	
 echo $usercount
-createUser="drop user 'safeUser'@'localhost';flush privileges;create user 'safeUser'@'localhost' identified by '${mysqlPasswd}';"
+createUser="create user 'safeUser'@'localhost' identified by '${mysqlPasswd}';"
 createcount=$(mysql -uroot -p$mysqlPasswd -s -e "${createUser}")
 if [ $createcount == 0 ]; then
 	echo "创建数据库用户失败！"

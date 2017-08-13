@@ -1,5 +1,0 @@
-programFile/config/db/all.conf
-*.pyc
-*.msi
-*/__pycache__
-*.save
