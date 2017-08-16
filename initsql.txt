@@ -9,7 +9,7 @@ INSERT INTO userInf(userNo,userName,userPosition,userStatus,departmentId,userPas
 
 
 departmentInf:
-INSERT INTO departmentInf(departmentName,province,city,createTime,createUser)VALUES("三级部门","一级部门","二级部门",NOW(),"一级部门:二级部门:三级部门:超超管");
-INSERT INTO departmentInf(departmentName,province,city,createTime,createUser)VALUES("三级部门","陕西省","二级部门",NOW(),"一级部门:二级部门:三级部门:超超管");
-INSERT INTO departmentInf(departmentName,province,city,createTime,createUser)VALUES("三级部门","陕西省","公安厅",NOW(),"一级部门:二级部门:三级部门:超超管");
-INSERT INTO departmentInf(departmentName,province,city,createTime,createUser)VALUES("资料处","陕西省","公安厅",NOW(),"一级部门:二级部门:三级部门:超超管");
+INSERT INTO departmentInf(departmentName,keyPath,province,city,createTime,createUser)VALUES("三级部门","/tmp/SafeDir","一级部门","二级部门",NOW(),"一级部门:二级部门:三级部门:超超管");
+INSERT INTO departmentInf(departmentName,keyPath,province,city,createTime,createUser)VALUES("三级部门","/tmp/SafeDir","陕西省","二级部门",NOW(),"一级部门:二级部门:三级部门:超超管");
+INSERT INTO departmentInf(departmentName,keyPath,province,city,createTime,createUser)VALUES("三级部门","/tmp/SafeDir","陕西省","公安厅",NOW(),"一级部门:二级部门:三级部门:超超管");
+INSERT INTO departmentInf(departmentName,keyPath,province,city,createTime,createUser)VALUES("资料处","/tmp/SafeDir","陕西省","公安厅",NOW(),"一级部门:二级部门:三级部门:超超管");
