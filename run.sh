@@ -210,6 +210,31 @@ echo "/home/dev/restartService.sh" >> /etc/rc.local
 chmod +x /etc/init.d/rc.local
 rm -rf Python-3.4.6
 rm -rf djangoweb
+echo "DjangoWeb部署成功！"
+
+
+echo "现在安装ukey环境..."
+chmod +x jdk-6u45-linux-x64.bin
+./jdk-6u45-linux-x64.bin  #安装jdk
+echo "安装jdk1.6.0成功！"
+if command -v java >/dev/null 2>error.log; then
+    mv /usr/bin/java javabak
+    ln -s /usr/lib/jvm/jdk1.6.0_45/bin/java /usr/bin/java
+else 
+    ln -s /usr/lib/jvm/jdk1.6.0_45/bin/java /usr/bin/java
+fi
+
+if command -v javac >/dev/null 2>error.log; then
+    mv /usr/bin/javac javacbak
+    ln -s /usr/lib/jvm/jdk1.6.0_45/bin/javac /usr/bin/javac
+else 
+    ln -s /usr/lib/jvm/jdk1.6.0_45/bin/javac /usr/bin/javac
+fi
+echo "export JAVA_HOME=/usr/lib/jvm/jdk1.6.0" >> /etc/profile
+source /etc/profile
+echo $JAVA_HOME
+chmod +x config_dev_env/inst
+./config_dev_env/inst     #安装ukey检测环境
 
 clear
 echo "恭喜你项目已经成功部署啦。。。"
