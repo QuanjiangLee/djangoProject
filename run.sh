@@ -161,6 +161,7 @@ folder='/home/dev'
 if [ ! -d "$folder" ]; then
     mkdir -p "$folder"
 fi
+mkdir -p /home/dev/safeFile
 cp -r ./djangoweb /home/dev/SafeProgram
 
 #安装nginx

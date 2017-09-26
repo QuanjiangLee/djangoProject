@@ -13,3 +13,14 @@ INSERT INTO departmentInf(departmentName,province,city,createTime,createUser)VAL
 INSERT INTO departmentInf(departmentName,province,city,createTime,createUser)VALUES("三级部门","陕西省","二级部门",NOW(),"一级部门:二级部门:三级部门:超超管");
 INSERT INTO departmentInf(departmentName,province,city,createTime,createUser)VALUES("三级部门","陕西省","公安厅",NOW(),"一级部门:二级部门:三级部门:超超管");
 INSERT INTO departmentInf(departmentName,province,city,createTime,createUser)VALUES("资料处","陕西省","公安厅",NOW(),"一级部门:二级部门:三级部门:超超管");
+
+增加ukeyInf字段isGranted
+CREATE TABLE `ukeyInf` (
+  `ukId` int(11) NOT NULL AUTO_INCREMENT,
+  `companyName` varchar(255) NOT NULL,
+  `userScale` int(11) NOT NULL,
+  `installNum` int(11) DEFAULT NULL,
+  `serviceUntilTime` datetime NOT NULL,
+  `isGranted` char(13) NOT NULL,
+  PRIMARY KEY (`ukId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
