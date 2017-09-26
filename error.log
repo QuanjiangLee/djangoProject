@@ -1,0 +1,2 @@
+Error: The directory named as part of the path /var/log/recvfile/stdout.log does not exist in section 'program:RecvFile' (file: '/etc/supervisord.conf')
+For help, use /usr/bin/supervisord -h

@@ -116,8 +116,10 @@ echo "continue..."
 if [ $usercount -eq 0 ]; then	
 echo $usercount
 createUser="create user 'safeUser'@'localhost' identified by '${mysqlPasswd}';"
-else createUser="drop user 'safeUser'@'localhost';flush privileges;create user 'safeUser'@'localhost' identified by '${mysqlPasswd}';"
+else 
+createUser="drop user 'safeUser'@'localhost';flush privileges;create user 'safeUser'@'localhost' identified by '${mysqlPasswd}';"
 fi	
+
 createcount=$(mysql -uroot -p$mysqlPasswd -s -e "${createUser}")
 if [ $createcount == 0 ]; then
     echo "创建数据库用户失败！"
