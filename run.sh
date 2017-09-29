@@ -165,6 +165,7 @@ if [ ! -d "$folder" ]; then
 fi
 mkdir -p /home/dev/safeFile
 cp -r ./djangoweb /home/dev/SafeProgram
+cp -r ./RecvFile /home/dev/RecvFile
 
 #安装nginx
 echo "安装nginx并配置nginx..."
@@ -215,7 +216,8 @@ echo "/home/dev/restartService.sh" >> /etc/rc.local
 chmod +x /etc/rc.d/rc.local
 rm -rf Python-3.4.6
 rm -rf djangoweb
-echo "DjangoWeb部署成功！"
+rm -rf RecvFile
+echo "DjangoWeb和RecvFile部署成功！"
 
 
 echo "现在安装ukey环境..."
@@ -241,6 +243,31 @@ source /etc/profile
 echo $JAVA_HOME
 chmod +x config_dev_env/inst
 ./config_dev_env/inst yes    #安装ukey检测环境
+
+echo "现在开始安装vsftp服务器..."
+
+yum install ftp vsftpd -y
+
+echo "vsftp服务器安装成功！"
+if [ -f "/etc/vsftpd/vsftpd.conf" ];then
+   mv /etc/vsftpd/vsftpd.conf /etc/vsftpd/vsftpd.bak
+fi
+cp vsftpd.conf /etc/vsftpd/ #复制ftpd配置文件
+
+mkdir -p /var/ftp/CloudMonitor
+mkdir -p /var/ftp/CloudMonitor-xp
+echo "创建ftp用户..."
+id safeUser  >& /dev/null
+if [ $? -eq 0 ]
+then
+        echo "safeUser:safeUsersafeUser" | chpasswd
+else
+        useradd safeUser
+        echo "safeUser:safeUsersafeUser" | chpasswd
+fi
+
+systemctl restart vsftpd
+systemctl enable vsftpd
 
 #clear
 echo "恭喜你项目已经成功部署啦。。。"
