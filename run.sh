@@ -46,7 +46,7 @@ mysqlPasswd='xaut.qll'
 clear
 echo "开始安装准备..."
 
-yum update -y
+#yum update -y
 yum groupinstall -y 'Development Tools'
 yum install -y zlib-devel bzip2-devel openssl-devel ncurese-devel
 yum install -y vim
@@ -182,6 +182,8 @@ if [ -f "/etc/nginx/conf.d/default.conf" ]; then
 mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.bak
 fi
 systemctl restart nginx
+systemctl enable nginx
+
 
 #安装升级pip2
 echo "安装升级pip2..."
@@ -222,14 +224,14 @@ chmod +x jdk-6u45-linux-x64.bin
 mv jdk1.6.0_45 /usr/lib/jvm/
 echo "安装jdk1.6.0成功！"
 if command -v java >/dev/null 2>error.log; then
-    mv /usr/bin/java javabak
+    mv /usr/bin/java /usr/bin/javabak
     ln -s /usr/lib/jvm/jdk1.6.0_45/bin/java /usr/bin/java
 else 
     ln -s /usr/lib/jvm/jdk1.6.0_45/bin/java /usr/bin/java
 fi
 
 if command -v javac >/dev/null 2>error.log; then
-    mv /usr/bin/javac javacbak
+    mv /usr/bin/javac /usr/bin/javacbak
     ln -s /usr/lib/jvm/jdk1.6.0_45/bin/javac /usr/bin/javac
 else 
     ln -s /usr/lib/jvm/jdk1.6.0_45/bin/javac /usr/bin/javac
@@ -240,7 +242,7 @@ echo $JAVA_HOME
 chmod +x config_dev_env/inst
 ./config_dev_env/inst yes    #安装ukey检测环境
 
-clear
+#clear
 echo "恭喜你项目已经成功部署啦。。。"
 
 
