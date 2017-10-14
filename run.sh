@@ -257,7 +257,7 @@ cp vsftpd.conf /etc/vsftpd/ #复制ftpd配置文件
 mkdir -p /var/ftp/CloudMonitor
 mkdir -p /var/ftp/CloudMonitor-xp
 echo "创建ftp用户..."
-id safeUser  >& /dev/null
+id safeUser  > /dev/null 2>error.log
 if [ $? -eq 0 ]
 then
         echo "safeUser:safeUsersafeUser" | chpasswd
