@@ -103,11 +103,11 @@ echo "设置数据库密码和创建数据库用户safeUser..."
 #create user 'safeUser'@'localhost' identified by 'xaut.qll'; ---create databaseUser
 mysqladmin -u root -h localhost password "$mysqlPasswd" >/dev/null 2>error.log &  
 echo "continue..."
-mysql -uroot -p$mysqlPasswd -e "" &>/dev/null
-if [ $? -ne 0 ]; then
-    echo "数据库密码设置可能错误或者您已设置过密码了,请在error.log中查看错误！"
-else echo "成功设置数据库密码！"
-fi
+#mysql -uroot -p$mysqlPasswd -e "" &>/dev/null
+#if [ $? -ne 0 ]; then
+#     echo "数据库密码设置可能错误或者您已设置过密码了,请在error.log中查看错误！"
+#else echo "成功设置数据库密码！"
+#fi
 
 cmdUser="select count(*) from mysql.user where user='safeUser';"
 usercount=$(mysql -uroot -p$mysqlPasswd -s -e "${cmdUser}")
@@ -149,7 +149,7 @@ cmd="select count(*) from information_schema.tables where table_schema='userInf'
 tablecount=$(mysql -uroot -p$mysqlPasswd -s -e "${cmd}")
 
 if [ $tablecount == 0 ]; then
-mysql -uroot -p$mysqlPasswd safeDb < safeDbStruc.sql
+mysql -uroot -p$mysqlPasswd safeDb < safeDb.sql
 mysql -uroot -p$mysqlPasswd session < sessionStruc.sql
 fi
 
@@ -214,16 +214,20 @@ systemctl enable supervisord
 cp restartService.sh  /home/dev/
 echo "/home/dev/restartService.sh" >> /etc/rc.local
 chmod +x /etc/rc.d/rc.local
+chmod +x /home/dev/restartService.sh
 rm -rf Python-3.4.6
-rm -rf djangoweb
-rm -rf RecvFile
+#rm -rf djangoweb
+#rm -rf RecvFile
 echo "DjangoWeb和RecvFile部署成功！"
 
 
 echo "现在安装ukey环境..."
 chmod +x jdk-6u45-linux-x64.bin
 ./jdk-6u45-linux-x64.bin  #安装jdk
-mv jdk1.6.0_45 /usr/lib/jvm/
+if [ ! -d "/usr/lib/jvm/jdk1.6.0_45" ];then
+mv  jdk1.6.0_45 /usr/lib/jvm/
+rm -rf jdk1.6.0_45
+fi 
 echo "安装jdk1.6.0成功！"
 if command -v java >/dev/null 2>error.log; then
     mv /usr/bin/java /usr/bin/javabak
@@ -238,11 +242,17 @@ if command -v javac >/dev/null 2>error.log; then
 else 
     ln -s /usr/lib/jvm/jdk1.6.0_45/bin/javac /usr/bin/javac
 fi
-echo "export JAVA_HOME=/usr/lib/jvm/jdk1.6.0" >> /etc/profile
+echo "export JAVA_HOME=/usr/lib/jvm/jdk1.6.0_45" >> /etc/profile
 source /etc/profile
 echo $JAVA_HOME
 chmod +x config_dev_env/inst
 ./config_dev_env/inst yes    #安装ukey检测环境
+
+echo "disable firewalled and enable sshd..."
+systemctl stop firewalld.service 
+systemctl start sshd
+systemctl enable sshd
+systemctl disable firewalld.service 
 
 echo "现在开始安装vsftp服务器..."
 
@@ -257,14 +267,13 @@ cp vsftpd.conf /etc/vsftpd/ #复制ftpd配置文件
 mkdir -p /var/ftp/CloudMonitor
 mkdir -p /var/ftp/CloudMonitor-xp
 echo "创建ftp用户..."
-id safeUser  > /dev/null 2>error.log
-if [ $? -eq 0 ]
-then
+#id safeUser  > /dev/null 2>error.log
+#if [ $? -eq 0 ]
+#then
         echo "safeUser:safeUsersafeUser" | chpasswd
-else
-        useradd safeUser
-        echo "safeUser:safeUsersafeUser" | chpasswd
-fi
+#else
+useradd safeUser && echo "safeUser:safeUsersafeUser" | chpasswd > /dev/null 2>error.log
+#fi
 
 systemctl restart vsftpd
 systemctl enable vsftpd
