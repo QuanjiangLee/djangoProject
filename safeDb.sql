@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.11, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.38, for Linux (x86_64)
 --
--- Host: localhost    Database: sss
+-- Host: localhost    Database: safeDb
 -- ------------------------------------------------------
--- Server version	5.7.11
+-- Server version	5.6.38
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -257,6 +257,7 @@ CREATE TABLE `departmentKey` (
 
 LOCK TABLES `departmentKey` WRITE;
 /*!40000 ALTER TABLE `departmentKey` DISABLE KEYS */;
+INSERT INTO `departmentKey` VALUES (1,1),(2,1),(3,1),(4,1);
 /*!40000 ALTER TABLE `departmentKey` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -381,7 +382,7 @@ CREATE TABLE `keywordsInf` (
   `createUserStatus` int(11) NOT NULL DEFAULT '0',
   `createUserId` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`keyId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -390,6 +391,7 @@ CREATE TABLE `keywordsInf` (
 
 LOCK TABLES `keywordsInf` WRITE;
 /*!40000 ALTER TABLE `keywordsInf` DISABLE KEYS */;
+INSERT INTO `keywordsInf` VALUES (1,'核心',3,0,'1234567'),(2,'机密',3,0,'1234567'),(3,'秘密',3,0,'1234567'),(4,'绝密',3,0,'1234567');
 /*!40000 ALTER TABLE `keywordsInf` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -927,4 +929,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-29 22:27:04
+-- Dump completed on 2017-10-19 10:15:35

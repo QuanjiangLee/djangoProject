@@ -222,8 +222,10 @@ echo "DjangoWeb和RecvFile部署成功！"
 
 
 echo "现在安装ukey环境..."
+if [ ! -d "./jdk1.6.0_45" ];then
 chmod +x jdk-6u45-linux-x64.bin
 ./jdk-6u45-linux-x64.bin  #安装jdk
+fi
 if [ ! -d "/usr/lib/jvm/jdk1.6.0_45" ];then
 mv  jdk1.6.0_45 /usr/lib/jvm/
 rm -rf jdk1.6.0_45
@@ -246,7 +248,9 @@ echo "export JAVA_HOME=/usr/lib/jvm/jdk1.6.0_45" >> /etc/profile
 source /etc/profile
 echo $JAVA_HOME
 chmod +x config_dev_env/inst
-./config_dev_env/inst yes    #安装ukey检测环境
+chmod +x config_dev_env/uninst
+#./config_dev_env/uninst > /dev/null 2>error.log
+echo "yes" | ./config_dev_env/inst    #安装ukey检测环境
 
 echo "disable firewalled and enable sshd..."
 systemctl stop firewalld.service 
@@ -270,7 +274,7 @@ echo "创建ftp用户..."
 #id safeUser  > /dev/null 2>error.log
 #if [ $? -eq 0 ]
 #then
-        echo "safeUser:safeUsersafeUser" | chpasswd
+#        echo "safeUser:safeUsersafeUser" | chpasswd
 #else
 useradd safeUser && echo "safeUser:safeUsersafeUser" | chpasswd > /dev/null 2>error.log
 #fi
