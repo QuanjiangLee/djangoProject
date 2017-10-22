@@ -103,11 +103,11 @@ echo "设置数据库密码和创建数据库用户safeUser..."
 #create user 'safeUser'@'localhost' identified by 'xaut.qll'; ---create databaseUser
 mysqladmin -u root -h localhost password "$mysqlPasswd" >/dev/null 2>error.log &  
 echo "continue..."
-#mysql -uroot -p$mysqlPasswd -e "" &>/dev/null
-#if [ $? -ne 0 ]; then
-#     echo "数据库密码设置可能错误或者您已设置过密码了,请在error.log中查看错误！"
-#else echo "成功设置数据库密码！"
-#fi
+mysql -uroot -p$mysqlPasswd -e "flush privileges;" >/dev/null 2>error.log &
+if [ $? -ne 0 ]; then
+     echo "数据库密码设置可能错误或者您已设置过密码了,请在error.log中查看错误！"
+else echo "成功设置数据库密码！"
+fi
 
 cmdUser="select count(*) from mysql.user where user='safeUser';"
 usercount=$(mysql -uroot -p$mysqlPasswd -s -e "${cmdUser}")
@@ -227,8 +227,8 @@ chmod +x jdk-6u45-linux-x64.bin
 ./jdk-6u45-linux-x64.bin  #安装jdk
 fi
 if [ ! -d "/usr/lib/jvm/jdk1.6.0_45" ];then
-mv  jdk1.6.0_45 /usr/lib/jvm/
-rm -rf jdk1.6.0_45
+mv  ./jdk1.6.0_45 /usr/lib/jvm/ && rm -rf ./jdk1.6.0_45
+echo "continue..." 
 fi 
 echo "安装jdk1.6.0成功！"
 if command -v java >/dev/null 2>error.log; then
