@@ -222,12 +222,12 @@ echo "DjangoWeb和RecvFile部署成功！"
 
 
 echo "现在安装ukey环境..."
-if [ ! -d "./jdk1.6.0_45" ];then
+if [ ! -d "./jdk1.6.0_45/" ];then
 chmod +x jdk-6u45-linux-x64.bin
 ./jdk-6u45-linux-x64.bin  #安装jdk
 fi
-if [ ! -d "/usr/lib/jvm/jdk1.6.0_45" ];then
-mv  ./jdk1.6.0_45 /usr/lib/jvm/ && rm -rf ./jdk1.6.0_45
+if [ ! -d "/usr/lib/jvm/jdk1.6.0_45/" ];then
+mv  ./jdk1.6.0_45 /usr/lib/jvm/
 echo "continue..." 
 fi 
 echo "安装jdk1.6.0成功！"
