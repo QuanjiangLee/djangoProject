@@ -89,7 +89,7 @@ if command -v mysql >/dev/null 2>error.log; then
 else
 #rpm -qa | grep mysql-community-release-el7-5.noarch &>/dev/null
 if [ $? -ne 0 ]; then
-rpm -ivh mysql-community-release-el7-5.noarch.rpm
+rpm -ivh mysql-community-release-el7-5.noarch.rpm &
 fi
 #yum repolist enabled | grep "mysql.*-community*"
 yum install -y mysql-community-server
@@ -227,7 +227,8 @@ chmod +x jdk-6u45-linux-x64.bin
 ./jdk-6u45-linux-x64.bin  #安装jdk
 fi
 if [ ! -d "/usr/lib/jvm/jdk1.6.0_45/" ];then
-mv  ./jdk1.6.0_45 /usr/lib/jvm/
+mv  ./jdk1.6.0_45 /usr/lib/jvm/jdk1.6.0_45
+rm -rf ./jdk1.6.0_45
 echo "continue..." 
 fi 
 echo "安装jdk1.6.0成功！"
