@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.6.38, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.11, for Linux (x86_64)
 --
--- Host: localhost    Database: safeDb
+-- Host: localhost    Database: sss
 -- ------------------------------------------------------
--- Server version	5.6.38
+-- Server version	5.7.11
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -133,7 +133,7 @@ CREATE TABLE `computerInf` (
   `sysversion` varchar(255) DEFAULT NULL,
   `sysName` varchar(255) DEFAULT NULL,
   `userId` int(11) NOT NULL,
-  `userIp` varchar(40) DEFAULT NULL,
+  `userIp` varchar(255) DEFAULT NULL,
   `userNetStatus` int(11) NOT NULL DEFAULT '0',
   `userScanStatus` int(11) NOT NULL DEFAULT '0',
   `sysType` int(4) DEFAULT NULL,
@@ -929,4 +929,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-19 10:15:35
+-- Dump completed on 2017-11-06 13:27:29
