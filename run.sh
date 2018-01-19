@@ -80,6 +80,8 @@ echo "安装django和所需模块..."
 pip3 install Django==1.10.5
 pip3 install pymysql
 pip3 install xlrd
+pip3 install twisted 
+pip3 install pyopenssl
 
 #安装mysql-community
 echo "安装mysql数据库..."
@@ -165,7 +167,12 @@ if [ ! -d "$folder" ]; then
 fi
 mkdir -p /home/dev/safeFile
 cp -r ./djangoweb /home/dev/SafeProgram
+
+if [ ! -d "./RecvFile" ]
+cp -r ./ClientServer /home/dev/RecvFile
+else
 cp -r ./RecvFile /home/dev/RecvFile
+fi
 
 #安装nginx
 echo "安装nginx并配置nginx..."
