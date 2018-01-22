@@ -168,7 +168,7 @@ fi
 mkdir -p /home/dev/safeFile
 cp -r ./djangoweb /home/dev/SafeProgram
 
-if [ ! -d "./RecvFile" ]
+if [ ! -d "./RecvFile" ]; then
 cp -r ./ClientServer /home/dev/RecvFile
 else
 cp -r ./RecvFile /home/dev/RecvFile
