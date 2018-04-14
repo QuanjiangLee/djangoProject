@@ -165,9 +165,13 @@ folder='/home/dev'
 if [ ! -d "$folder" ]; then
     mkdir -p "$folder"
 fi
+folder2='/home/zanshi'
+if [ ! -d "$folder2" ]; then
+    mkdir -p "$folder2"
+fi
 mkdir -p /home/dev/safeFile
-cp -r ./djangoweb /home/dev/SafeProgram
-
+cp -r ./SafeProgram /home/dev/SafeProgram
+cp -r ./SafeProgram2 /home/zanshi/SafeProgram
 if [ ! -d "./RecvFile" ]; then
 cp -r ./ClientServer /home/dev/RecvFile
 else
@@ -186,6 +190,7 @@ fi
 #sudo yum install python-devel nginx
 #mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.bakconf
 cp -r ./http.conf /etc/nginx/conf.d/http.conf
+cp -r ./http2.conf /etc/nginx/conf.d/http2.conf
 if [ -f "/etc/nginx/conf.d/default.conf" ]; then
 mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.bak
 fi
